@@ -1,6 +1,10 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { createUser } from '../api/api.service';
+import { Signin, Signup } from '../api/api.service';
 
-export const useCreateUser = () => {
-  return useMutation(createUser);
+export const useSignup = () => {
+  return useMutation(Signup);
+};
+
+export const useSignin = () => {
+  return useMutation(Signin);
 };
