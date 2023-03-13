@@ -10,6 +10,14 @@ export const HeadingH2 = styled.h2`
     `}
 `;
 
+export const HeadingH3 = styled.h3`
+  ${(props) =>
+    props.user &&
+    css`
+      font-size: 1.5rem;
+    `}
+`;
+
 export const Span = styled.span`
   ${(props) =>
     props.hero &&

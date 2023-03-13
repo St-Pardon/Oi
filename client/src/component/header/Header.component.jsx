@@ -4,7 +4,7 @@ import { BtnContainer, Button } from '../button/Button.component';
 import { Figure } from '../image/image.styled';
 import { Link } from 'react-router-dom';
 
-const Header = ({ route }) => {
+const Header = ({ route, isAuthenticated }) => {
   return (
     <HeaderContainer>
       <Nav logo>
@@ -14,22 +14,24 @@ const Header = ({ route }) => {
           </a>
         </Figure>
       </Nav>
-      <Nav>
-        <NavBar>
-          <Navlist>Home</Navlist>
-          <Navlist>About</Navlist>
-          <Navlist>Features</Navlist>
-          <Navlist>Contribute</Navlist>
-        </NavBar>
-        <BtnContainer>
-          <Link to={'signin'}>
-            <Button>Sign Up</Button>
-          </Link>
-          <Link to={'signup'}>
-            <Button primary>Signin</Button>
-          </Link>
-        </BtnContainer>
-      </Nav>
+      {isAuthenticated ? null : (
+        <Nav>
+          <NavBar>
+            <Navlist>Home</Navlist>
+            <Navlist>About</Navlist>
+            <Navlist>Features</Navlist>
+            <Navlist>Contribute</Navlist>
+          </NavBar>
+          <BtnContainer>
+            <Link to={'/signup'}>
+              <Button>Sign Up</Button>
+            </Link>
+            <Link to={'/signin'}>
+              <Button primary>Signin</Button>
+            </Link>
+          </BtnContainer>
+        </Nav>
+      )}
     </HeaderContainer>
   );
 };

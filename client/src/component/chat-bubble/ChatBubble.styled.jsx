@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const BubbleContainer = styled.div`
   display: flex;
-
+  margin: 10px 0;
   ${(props) =>
     props.recieve &&
     css`

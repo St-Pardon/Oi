@@ -29,6 +29,12 @@ export const Button = styled.button`
     css`
       font-size: 1.2rem
     `}
+
+    ${(props) =>
+    props.send &&
+    css`
+      font-size: 1.2rem
+    `}
 `;
 
 export const BtnContainer = styled.div`
