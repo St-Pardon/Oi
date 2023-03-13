@@ -3,50 +3,27 @@ import { ChatlistContainer, User } from './chatlist.styled';
 import avi from '../../assets/avatar/avi.png';
 import { HeadingH3 } from '../heading/headings.styled';
 import { Link } from 'react-router-dom';
+import { useChatlist } from '../../services/query/query.service';
 
-const Chatlist = () => {
+const Chatlist = ({ user }) => {
+  const { isLoading, data } = useChatlist(user);
+
   return (
     <ChatlistContainer>
-      <Link to={`/chat/`}>
-        <User>
-          <Figure user>
-            <Img src={avi} alt="User's avatar" />
-          </Figure>
-          <HeadingH3 user>Johndoe</HeadingH3>
-        </User>
-      </Link>
-      <Link to="">
-        <User>
-          <Figure user>
-            <Img src={avi} alt="User's avatar" />
-          </Figure>
-          <HeadingH3 user>Mike Okoye</HeadingH3>
-        </User>
-      </Link>
-      <Link to="">
-        <User>
-          <Figure user>
-            <Img src={avi} alt="User's avatar" />
-          </Figure>
-          <HeadingH3 user>Steve Gerad</HeadingH3>
-        </User>
-      </Link>
-      <Link to="">
-        <User>
-          <Figure user>
-            <Img src={avi} alt="User's avatar" />
-          </Figure>
-          <HeadingH3 user>Tommy Egan</HeadingH3>
-        </User>
-      </Link>
-      <Link to="">
-        <User>
-          <Figure user>
-            <Img src={avi} alt="User's avatar" />
-          </Figure>
-          <HeadingH3 user>Pardonne</HeadingH3>
-        </User>
-      </Link>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        data?.map((item, i) => (
+          <Link to={item} key={i}>
+            <User>
+              <Figure user>
+                <Img src={avi} alt="User's avatar" />
+              </Figure>
+              <HeadingH3 user>{item}</HeadingH3>
+            </User>
+          </Link>
+        ))
+      )}
     </ChatlistContainer>
   );
 };

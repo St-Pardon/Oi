@@ -3,12 +3,13 @@ import { ChatContainer } from './chat.styled';
 import { Outlet } from 'react-router-dom';
 import Header from '../../component/header/Header.component';
 
-const Chat = () => {
+const Chat = ({ user }) => {
+  // Note: use ContextAPI to move socket component here
   return (
     <>
       <Header />
       <ChatContainer>
-        <Chatlist />
+        <Chatlist user={user} />
         <Outlet />
       </ChatContainer>
     </>
