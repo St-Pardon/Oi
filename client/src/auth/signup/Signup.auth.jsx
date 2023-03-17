@@ -155,7 +155,7 @@ const Signup = () => {
             <Button primary>Sign Up</Button>
           </div>
           <Para>
-            Already for have an account? <a href="signin">Sign in</a>
+            Already for have an account? <a href="/signin">Sign in</a>
           </Para>
         </Form>
       </AuthSection>
