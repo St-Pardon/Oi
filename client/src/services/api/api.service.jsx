@@ -8,16 +8,19 @@ const BaseURI = 'http://127.0.0.1:5230';
  * @returns network response
  */
 export const Signup = (data) => {
-  console.log('clicked', data);
   return axios.post(`${BaseURI}/signup`, data);
 };
 
 export const Signin = (data) => {
-  console.log('clicked', data);
   return axios.post(`${BaseURI}/signin`, data);
 };
 
-export const Chatlist = (username) => {
-  console.log(username);
-  return axios.get(`${BaseURI}/chatlist/${username}`).then((res) => res.data);
+export const Chatlist = () => {
+  return axios
+    .get(`${BaseURI}/chatlist/${localStorage.getItem('userId')}`)
+    .then((res) => res.data);
+};
+
+export const GetUser = (username) => {
+  return axios.get(`${BaseURI}/user/${username}`).then((res) => res.data);
 };
