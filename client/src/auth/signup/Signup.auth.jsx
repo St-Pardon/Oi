@@ -9,6 +9,8 @@ import {
   AuthContainer,
   AuthSection,
 } from '../Auth.styled';
+import { useNavigate} from 'react-router-dom'
+
 
 const formField = {
   first_name: '',
@@ -23,6 +25,7 @@ const formField = {
 
 const Signup = () => {
   const [formData, setFormData] = useState(formField);
+  const navigate = useNavigate()
   const {
     first_name,
     last_name,
@@ -34,7 +37,15 @@ const Signup = () => {
     confirm_password,
   } = formData;
   const Conf_pass = useRef();
-  const { mutate, isLoading } = useSignup();
+
+  const onSuccess = (res) => {
+    navigate('/signin')
+  }
+
+  const onError = (err) => {
+    consoleq.log(err)
+  }
+  const { mutate, isLoading } = useSignup(onSuccess, onError);
   const resetFeild = () => {
     setFormData(formField);
   };
