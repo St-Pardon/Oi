@@ -21,6 +21,10 @@ export const Chatlist = () => {
     .then((res) => res.data);
 };
 
-export const GetUser = (username) => {
-  return axios.get(`${BaseURI}/user/${username}`).then((res) => res.data);
+export const GetUserById = (id) => {
+  return axios.get(`${BaseURI}/user/${id}`).then((res) => res.data);
+};
+
+export const GetUserByUsername = (username) => {
+  return axios.get(`${BaseURI}/username/${username}`).then((res) => res.data);
 };
