@@ -8,6 +8,16 @@ export const HeadingH2 = styled.h2`
       line-height: 50px;
       margin-bottom: 0.5em;
     `}
+  ${(props) =>
+    props.profile &&
+    css`
+      font-size: 2.5rem;
+    `}
+  ${(props) =>
+    props.welcome &&
+    css`
+      font-size: 3.5rem;
+    `}
 `;
 
 export const HeadingH3 = styled.h3`

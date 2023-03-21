@@ -22,6 +22,26 @@ export const Figure = styled.figure`
       height: 50px;
       border-radius: 100%;
     `}
+  ${(props) =>
+    props.header &&
+    css`
+      width: 35px;
+      height: 35px;
+      border-radius: 100%;
+    `}
+  ${(props) =>
+    props.profile &&
+    css`
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      border-radius: 100%;
+    `}
+  ${(props) =>
+    props.welcome &&
+    css`
+      border-radius: 0;
+    `}
 `;
 
 export const Img = styled.img`

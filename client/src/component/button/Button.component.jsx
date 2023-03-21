@@ -8,11 +8,11 @@ export const Button = styled.button`
   color: #075471;
   margin: 0.5em 1em 0.5em 0em;
   padding: 0.5em 1.5em;
-  
-  &:hover{
-      opacity: 80%;
-      color: white;
-      background-color: #075471;
+
+  &:hover {
+    opacity: 80%;
+    color: white;
+    background-color: #075471;
   }
 
   ${(props) =>
@@ -20,20 +20,26 @@ export const Button = styled.button`
     css`
       background: #075471;
       color: white;
-      &:hover{
-          color: white;
+      &:hover {
+        color: white;
       }
     `}
   ${(props) =>
     props.hero &&
     css`
-      font-size: 1.2rem
+      font-size: 1.2rem;
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.send &&
     css`
-      font-size: 1.2rem
+      font-size: 1.2rem;
+    `}
+
+  ${(props) =>
+    props.request &&
+    css`
+      margin: 0;
     `}
 `;
 

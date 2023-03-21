@@ -16,7 +16,7 @@ const formField = {
   password: '',
 };
 
-const Signin = ({ setUser, setIsAuthenticated, isAuthenticated }) => {
+const Signin = ({ socket, setIsAuthenticated, isAuthenticated }) => {
   const [formData, setFormData] = useState(formField);
   const { username, password } = formData;
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Signin = ({ setUser, setIsAuthenticated, isAuthenticated }) => {
     localStorage.setItem('token', data.token);
     localStorage.setItem('userId', data.userId);
     // localStorage.setItem('authenticated', true);
-    // socket(true)
+    socket(true)
   };
 
   const onError = (err) => {

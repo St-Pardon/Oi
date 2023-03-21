@@ -22,6 +22,12 @@ export const Nav = styled.nav`
     css`
       justify-content: flex-start;
     `}
+  
+   ${(props) =>
+    props.auth &&
+    css`
+      gap: 10px;
+    `}
 `;
 
 export const NavBar = styled.ul`

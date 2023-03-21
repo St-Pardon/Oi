@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const ChatContainer = styled.main`
+display:flex;
+width: 100%;`
+export const ChatSection = styled.section`
   display: grid;
   grid-template-rows: 70px 1fr 70px;
   width: 100%;
@@ -30,6 +33,7 @@ export const UserInfo = styled.div`
   gap: 10px;
   width: 50%;
   align-items: center;
+  padding: 0 10px;
 `;
 
 export const ChatInput = styled.input`
