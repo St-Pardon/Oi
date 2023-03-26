@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BaseURI = 'http://127.0.0.1:5230';
+const BaseURI = 'http://127.0.0.1:5230/api/v1';
 
 /**
  * Create a new user
@@ -8,11 +8,11 @@ const BaseURI = 'http://127.0.0.1:5230';
  * @returns network response
  */
 export const Signup = (data) => {
-  return axios.post(`${BaseURI}/signup`, data);
+  return axios.post(`${BaseURI}/auth//signup`, data);
 };
 
 export const Signin = (data) => {
-  return axios.post(`${BaseURI}/signin`, data);
+  return axios.post(`${BaseURI}/auth/signin`, data);
 };
 
 export const Chatlist = () => {
@@ -26,5 +26,5 @@ export const GetUserById = (id) => {
 };
 
 export const GetUserByUsername = (username) => {
-  return axios.get(`${BaseURI}/username/${username}`).then((res) => res.data);
+  return axios.get(`${BaseURI}/user/username/${username}`).then((res) => res.data);
 };
