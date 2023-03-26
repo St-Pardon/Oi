@@ -9,6 +9,7 @@ import { chatModel } from './models/chat.model.js';
 import AuthRoute from './routes/auth.routes.js';
 import UserRoute from './routes/user.routes.js';
 import ChatlistRoute from './routes/chatlist.routes.js';
+import { moreInfoModel } from './models/moreInfo.model.js';
 
 const PORT = process.env.PORT || 5000;
 const app = new express();
@@ -23,12 +24,6 @@ const io = new Socket(server, {
   },
 });
 const ChatSession = [];
-// const chatlist = {
-//   john: ['testbot', 'pardonne'],
-//   mike: ['pardonne', 'john'],
-//   pardonne: ['testbot', 'mike'],
-//   testbot: ['john', 'pardonne'],
-// };
 
 app
   .use(cors())
@@ -41,7 +36,118 @@ app
   .get('/', (req, res) => {
     res.status(200).end('Kindly refer to the API documentation to et started');
   })
+  .get('/more', (req, res) => {
+    //
+  })
+  .post('/more', (req, res) => {
+    const { user_id } = req.body;
 
+    moreInfoModel.create({ user_id }).then((data) => {
+      res
+        .status(201)
+        .json({ msg: 'Additional infomation added successfully', data });
+    });
+  })
+  .put('/request/:user_id', (req, res) => {
+    const { user_id } = req.params;
+    const { request_id } = req.body;
+
+    moreInfoModel
+      .updateMany(
+        { user_id: { $in: [user_id, request_id] } },
+        {
+          $push: { request: { request_id } },
+        },
+        { multi: true, new: true }
+      )
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(400).send(err);
+      });
+  })
+  .get('/request/:user_id', async (req, res) => {
+    const { user_id } = req.params;
+    const user = await moreInfoModel.findOne({ user_id });
+
+    if (!user) res.status(404).end('More user not found');
+
+    let chatRequest = user.request.map(async (item) => {
+      const res = await userModel.findOne({ _id: item.request_id });
+      return {
+        id: res._id,
+        display_name: res.display_name,
+        fullname: `${res.first_name} ${res.last_name}`,
+        date: item.time,
+        status: item.status,
+      };
+    });
+    Promise.all(chatRequest)
+      .then((data) => res.status(200).send(data))
+      .catch((err) => res.status(400).send(err));
+  })
+  .patch('/request/:user_id', async (req, res) => {
+    const { user_id } = req.params;
+    const { request_id, status } = req.query;
+    const user1 = await moreInfoModel.findOne({ user_id });
+    const user2 = await moreInfoModel.findOne({ user_id: request_id });
+
+    if (status === 'confirm') {
+      moreInfoModel
+        .updateMany(
+          {
+            user_id: { $in: [user_id, request_id] },
+            request: { $elemMatch: { request_id: request_id } },
+          },
+          {
+            $set: { 'request.$.status': 'Confirmed' },
+          }
+        )
+        .then((data) => {
+          res.status(200).send(data);
+        })
+        .catch((err) => {
+          res.status(400).send(err);
+        });
+    }
+    if (status === 'reject') {
+      moreInfoModel
+        .updateMany(
+          {
+            user_id: { $in: [user_id, request_id] },
+            request: { $elemMatch: { request_id: request_id } },
+          },
+          {
+            $set: { 'request.$.status': 'Rejected' },
+          }
+        )
+        .then((data) => {
+          res.status(200).send(data);
+        })
+        .catch((err) => {
+          res.status(400).send(err);
+        });
+    }
+    if (status === 'cancel') {
+      moreInfoModel
+        .updateMany(
+          {
+            user_id: { $in: [user_id, request_id] },
+            request: { $elemMatch: { request_id: request_id } },
+          },
+          {
+            $set: { 'request.$.status': 'Cancelled' },
+          }
+        )
+        .then((data) => {
+          res.status(200).send(data);
+        })
+        .catch((err) => {
+          res.status(400).send(err);
+        });
+    }
+  })
   .post('/add_chat', (req, res) => {
     const { friendId, userId } = req.body;
     userModel
@@ -78,8 +184,7 @@ io.use((socket, next) => {
   }
   socket.username = username;
   next();
-})
-.on('connection', (socket) => {
+}).on('connection', (socket) => {
   // ChatSession.push({chatId: socket.id});
   ChatSession.push({ chatId: socket.id, username: socket.username });
   console.log('We have a new connection', socket.id);
