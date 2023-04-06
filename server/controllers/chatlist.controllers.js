@@ -4,12 +4,12 @@ import { userModel } from '../models/user.models.js';
  * Chatlist Controller Class
  */
 class ChatlistController {
+  /**
+   * Retrives a user chatlist from the database
+   * @param {Object} req - contains the req methods,
+   * @param {Object} res - contains the res methods
+   */
   static async getUserChatlist(req, res) {
-    /**
-     * Retrives a user chatlist from the database
-     * @param {Object} req - contains the req methods,
-     * @param {Object} res - contains the res methods
-     */
     const { id } = req.params;
     const user = await userModel.findOne({ _id: id });
     let chatlist = user.chatlist.map(async (item) => {

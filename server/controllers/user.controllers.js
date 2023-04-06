@@ -1,3 +1,4 @@
+import { moreInfoModel } from '../models/moreInfo.model.js';
 import { userModel } from '../models/user.models.js';
 
 /**
@@ -53,6 +54,21 @@ class UserController {
       console.log(err);
       res.status(400).send(err);
     }
+  }
+
+  /**
+   * Add more infomantion for user profile
+   * @param {Object} req - contains the req methods,
+   * @param {Object} res - contains the res methods
+   */
+  static async addMoreInfo(req, res) {
+    const { user_id } = req.body;
+
+    moreInfoModel.create({ user_id }).then((data) => {
+      res
+        .status(201)
+        .json({ msg: 'Additional infomation added successfully', data });
+    });
   }
 }
 
