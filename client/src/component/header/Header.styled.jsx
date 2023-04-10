@@ -22,8 +22,8 @@ export const Nav = styled.nav`
     css`
       justify-content: flex-start;
     `}
-  
-   ${(props) =>
+
+  ${(props) =>
     props.auth &&
     css`
       gap: 10px;
@@ -44,4 +44,36 @@ export const Navlist = styled.li`
 export const Logo = styled.img`
   width: 100%;
   //   height: 100%;
+`;
+
+export const ShowDropDown = styled.div`
+  position: absolute;
+  top: 50px;
+  display: none;
+  // border: 2px solid red;
+
+  ${(props) =>
+    props.profile &&
+    css`
+      left: 0;
+      min-width: 150px;
+    `}
+
+  ${(props) =>
+    props.notification &&
+    css`
+      left: -150px;
+      min-width: 300px;
+    `}
+`;
+
+export const Div = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+
+  &:hover ${ShowDropDown} {
+    display: block;
+  }
 `;

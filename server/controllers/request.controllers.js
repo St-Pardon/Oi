@@ -47,6 +47,7 @@ class RequestController {
         id: res._id,
         display_name: res.display_name,
         fullname: `${res.first_name} ${res.last_name}`,
+        username: res.username,
         date: item.time,
         status: item.status,
       };
@@ -66,6 +67,7 @@ class RequestController {
     const { request_id, status } = req.query;
     // const user1 = await moreInfoModel.findOne({ user_id });
     // const user2 = await moreInfoModel.findOne({ user_id: request_id });
+    // check if request exist
 
     if (status === 'confirm') {
       try {
@@ -97,35 +99,27 @@ class RequestController {
       } catch (err) {
         res.status(400).send('err');
       }
+      return;
     }
     if (status === 'reject') {
       try {
         await moreInfoModel.updateMany(
           {
-            user_id: { $in: [request_id] },
+            user_id: { $in: [user_id, request_id] },
             request: { $elemMatch: { request_id: request_id } },
           },
           {
-            $set: { 'request.$.status': 'Rejected' },
-          }
-        );
-        await moreInfoModel.updateOne(
-          {
-            user_id,
-            request: { $elemMatch: { request_id: request_id } },
-          },
-          {
-            // $set: { 'request.$.status': 'Confirmed' },
             $pull: {
               request: { request_id },
-              // request: { $elemMatch: { request_id: request_id } },
             },
           }
         );
+
         res.status(200).send('completed');
       } catch (err) {
         res.status(400).send(err);
       }
+      return;
     }
     if (status === 'cancel') {
       moreInfoModel
@@ -147,6 +141,7 @@ class RequestController {
         .catch((err) => {
           res.status(400).send(err);
         });
+      return;
     }
     res.status(400).send('Invalid request');
   }

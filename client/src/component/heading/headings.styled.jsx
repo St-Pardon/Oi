@@ -26,6 +26,11 @@ export const HeadingH3 = styled.h3`
     css`
       font-size: 1.5rem;
     `}
+  ${(props) =>
+    props.name &&
+    css`
+      text-transform: capitalize;
+    `}
 `;
 
 export const Span = styled.span`

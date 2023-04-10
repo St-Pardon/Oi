@@ -25,6 +25,17 @@ export const Button = styled.button`
       }
     `}
   ${(props) =>
+    props.danger &&
+    css`
+      background: rgb(155, 44, 44);
+      border-color: rgb(155, 44, 44);
+      color: white;
+      &:hover {
+        background: rgb(155, 44, 44);
+        color: white;
+      }
+    `}
+  ${(props) =>
     props.hero &&
     css`
       font-size: 1.2rem;

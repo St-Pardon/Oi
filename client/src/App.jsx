@@ -17,6 +17,7 @@ import Protected from './auth/protect/protect.auth';
 import NewChat from './component/new-chat/NewChat.component';
 import Profile from './routes/profile/Profile.route';
 import ChatHome from './component/chat-home/ChatHome.component';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 let socket;
 const URI = 'ws://127.0.0.1:5230';
@@ -51,7 +52,10 @@ function App() {
       console.log(chat, to, from);
       setMsgs((msgs) => [...msgs, { chat, to, from }]);
     });
-    // console.log("render")
+    socket.on('disconnect', ()=>{
+      console.log('user left')
+      socket.emit('backup', msgs)
+    })
   }, [connect]);
 
   const handleSend = () => {
@@ -89,7 +93,7 @@ function App() {
       //   <Navigate replace to="/signin" />
       // ),
       element: (
-        <Protected isAuthenticated={isAuthenticated}>
+        <Protected isAuthenticated={isAuthenticated} setConnect={setConnect}>
           <Chat user={user} isAuthenticated={isAuthenticated} />
         </Protected>
       ),
@@ -121,6 +125,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

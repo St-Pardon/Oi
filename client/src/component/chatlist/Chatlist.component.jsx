@@ -11,14 +11,14 @@ import NewChat from '../new-chat/NewChat.component';
 
 const Chatlist = () => {
   const [open, setOpen] = useState(false)
-  const { isLoading, data } = useChatlist();
+  const { isLoading, data } = useChatlist(localStorage.getItem('userId'));
 
   return (
     <ChatlistContainer>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        data?.map((item, i) => (
+        data.map((item, i) => (
           <Link to={item.id} key={i}>
             <User>
               <Figure user>
@@ -30,7 +30,7 @@ const Chatlist = () => {
             </User>
           </Link>
         ))
-      )}
+      ) || <p>You don't have chats yet</p>}
       <Modal open={open} onClose={() => setOpen(!open)}>
         <NewChat />
       </Modal>
@@ -41,4 +41,5 @@ const Chatlist = () => {
     </ChatlistContainer>
   );
 };
+
 export default Chatlist;

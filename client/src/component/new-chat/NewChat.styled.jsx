@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const NewChatContainer = styled.section`
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
-  padding: 50px 0
+  padding: 50px 0;
 `;
 
 export const Form = styled.form`
@@ -43,4 +43,10 @@ export const SearchBtn = styled.input`
 export const Result = styled.div`
   width: 80%;
   margin: 0 auto 10px auto;
+  overflow: scroll;
+  ${(props) =>
+    props.req &&
+    css`
+      min-height: 100px;
+    `}
 `;

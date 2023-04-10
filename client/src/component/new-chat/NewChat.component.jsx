@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { MdSearch } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
 import {
-  useGetUser,
+  useChatRequest,
+  useChatlist,
+  useGetFetchQuery,
   useGetUserByUsername,
 } from '../../services/query/query.service';
 import ChatRequest from '../chat-request/ChatRequest.component';
@@ -18,12 +19,19 @@ import {
 const NewChat = () => {
   const [search, setSearch] = useState('');
 
+  const { data: chatlist, refetch: refetchChatlist } = useChatlist(localStorage.getItem('userId'));
+  const {
+    data: reqData,
+    isLoading: loading,
+    refetch,
+  } = useChatRequest(localStorage.getItem('userId'));
   const { mutate, isLoading, isError, isSuccess, data } =
     useGetUserByUsername();
+
   const handleSearch = (e) => {
     e.preventDefault();
     mutate(search);
-    setSearch('')
+    setSearch('');
   };
 
   return (
@@ -46,19 +54,70 @@ const NewChat = () => {
         {isLoading ? (
           <p>Searching...</p>
         ) : isSuccess ? (
-          console.log(data),
-          <ChatRequest
-          first_name={data?.first_name}
-          last_name={data?.last_name}
-          username={data?.username}
-        />
+          !data ? (
+            <p>
+              <em>User Not Found</em>
+            </p>
+          ) : data._id ===
+            localStorage.getItem('userId') ? null : chatlist?.find(
+              (user) => user.id === data._id
+            ) !== undefined ? (
+            <ChatRequest
+              first_name={data?.first_name}
+              last_name={data?.last_name}
+              username={data?.username}
+              request_id={data?._id}
+              refetch={refetch}
+              status="chat"
+            />
+          ) : reqData?.find((user) => user.id === data._id) === undefined ? (
+            <ChatRequest
+              first_name={data?.first_name}
+              last_name={data?.last_name}
+              username={data?.username}
+              request_id={data?._id}
+              refetch={refetch}
+              status="new"
+            />
+          ) : reqData?.filter((user) => user.id === data._id)[0].status ===
+            'pending' ? (
+            <ChatRequest
+              first_name={data?.first_name}
+              last_name={data?.last_name}
+              username={data?.username}
+              request_id={data?._id}
+              refetch={refetch}
+              status="pending"
+            />
+          ) : null
         ) : isError ? (
           <p>
             <em>User Not Found</em>
           </p>
         ) : null}
       </Result>
-      <Result>
+      <Result req>
+        <p>Chat Request</p>
+        <hr />
+        {loading ? (
+          <p>No chat request</p>
+        ) : reqData.length !== 0 ? (
+          reqData?.map((user, i) => (
+            <ChatRequest
+              key={i}
+              fullname={user?.fullname}
+              username={user?.username}
+              request_id={data?._id}
+              refetch={refetch}
+              refetchChatlist={refetchChatlist}
+              status="recieved"
+            />
+          ))
+        ) : (
+          <p>No chat request</p>
+        )}
+      </Result>
+      <Result req>
         <p>Suggested</p>
         <hr />
       </Result>

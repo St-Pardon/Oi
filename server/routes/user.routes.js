@@ -3,9 +3,8 @@ import UserController from '../controllers/user.controllers.js';
 
 const UserRoute = Router();
 
-UserRoute.get('/:id', UserController.getUserById).get(
-  '/username/:name',
-  UserController.getUserByName
-);
+UserRoute.get('/:id', UserController.getUserById)
+  .get('/username/:name', UserController.getUserByName)
+  .post('/more', UserController.addMoreInfo);
 
 export default UserRoute;

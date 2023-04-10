@@ -8,16 +8,16 @@ const BaseURI = 'http://127.0.0.1:5230/api/v1';
  * @returns network response
  */
 export const Signup = (data) => {
-  return axios.post(`${BaseURI}/auth//signup`, data);
+  return axios.post(`${BaseURI}/auth/signup`, data);
 };
 
 export const Signin = (data) => {
   return axios.post(`${BaseURI}/auth/signin`, data);
 };
 
-export const Chatlist = () => {
+export const Chatlist = (userId) => {
   return axios
-    .get(`${BaseURI}/chatlist/${localStorage.getItem('userId')}`)
+    .get(`${BaseURI}/chatlist/${userId}`)
     .then((res) => res.data);
 };
 
@@ -26,5 +26,25 @@ export const GetUserById = (id) => {
 };
 
 export const GetUserByUsername = (username) => {
-  return axios.get(`${BaseURI}/user/username/${username}`).then((res) => res.data);
+  return axios
+    .get(`${BaseURI}/user/username/${username}`)
+    .then((res) => res.data);
+};
+
+export const GetChatRequest = (userId) => {
+  return axios.get(`${BaseURI}/request/${userId}`).then((res) => res.data);
+};
+
+export const SendChatRequest = ({ userId, request_id }) => {
+  return axios
+    .put(`${BaseURI}/request/${userId}`, { request_id })
+    .then((res) => res.data);
+};
+
+export const ChangeChatRequest = ({userId, request_id, status}) => {
+  return axios
+    .patch(
+      `${BaseURI}/request/${userId}?request_id=${request_id}&status=${status}`
+    )
+    .then((res) => res.data);
 };
