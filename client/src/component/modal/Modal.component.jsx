@@ -8,21 +8,18 @@ const Modal = ({ children, onClose, open, mode, notification, option }) =>
     ? createPortal(
         <>
           <ModalContainer
-            mode={mode || false}
-            notification={notification || false}
-            option={option || false}
+            $mode={mode || false}
+
             >
             <CloseModal
               onClick={onClose}
-              mode={mode || false}
-              notification={notification || false}
-              option={option || false}
+              $mode={mode || false}
             >
               <MdOutlineClose color="black" />
             </CloseModal>
             {children}
           </ModalContainer>
-          <Overlay mode={mode || false} onClick={onClose} />
+          <Overlay $mode={mode} onClick={onClose} />
         </>,
         document.body
       )

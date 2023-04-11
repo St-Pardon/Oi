@@ -53,7 +53,7 @@ const Header = ({ route, isAuthenticated }) => {
                   notification: !open.notification,
                 })
               }
-              notification={true}
+              mode='notification'
               // mode={true}
               // notification
               // style={
@@ -91,7 +91,7 @@ const Header = ({ route, isAuthenticated }) => {
                   notification: false,
                 })
               }
-              option={true}
+              mode='option'
               // profile
               // style={open.option ? { display: 'block' } : { display: 'none' }}
             >

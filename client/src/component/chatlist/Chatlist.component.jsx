@@ -31,7 +31,7 @@ const Chatlist = () => {
           </Link>
         ))
       ) || <p>You don't have chats yet</p>}
-      <Modal open={open} onClose={() => setOpen(!open)} mode={true}>
+      <Modal open={open} onClose={() => setOpen(!open)} mode="newchat">
         <NewChat />
       </Modal>
       <NewChatBtn onClick={()=>setOpen(!open)}>

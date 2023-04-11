@@ -4,7 +4,7 @@ export const ModalContainer = styled.div`
   position: fixed;
 
   ${(props) =>
-    props.mode &&
+    props.$mode === 'newchat' &&
     css`
       -webkit-box-shadow: 0px 0px 20px -5px #00000022;
       box-shadow: 0px 0px 20px -5px #00000022;
@@ -20,7 +20,7 @@ export const ModalContainer = styled.div`
     `}
 
   ${(props) =>
-    props.notification &&
+    props.$mode === 'notification' &&
     css`
       min-height: 150px;
       top: 55px;
@@ -29,7 +29,7 @@ export const ModalContainer = styled.div`
     `}
 
   ${(props) =>
-    props.option &&
+    props.$mode === 'option' &&
     css`
       min-height: 150px;
       top: 55px;
@@ -40,7 +40,7 @@ export const ModalContainer = styled.div`
 
 export const CloseModal = styled.button`
   ${(props) =>
-    props.mode &&
+    props.$mode === 'newchat' &&
     css`
       background-color: unset;
       border: none;
@@ -52,13 +52,13 @@ export const CloseModal = styled.button`
     `}
 
   ${(props) =>
-    props.notification &&
+    props.$mode === 'notification' &&
     css`
       display: none;
     `}
 
   ${(props) =>
-    props.option &&
+    props.$mode === 'option' &&
     css`
       display: none;
     `}
@@ -74,7 +74,7 @@ export const Overlay = styled.div`
   background-color: transparent;
 
   ${(props) =>
-    props.mode &&
+    props.$mode === 'newchat' &&
     css`
       background-color: #2a2a2aaa;
     `}
