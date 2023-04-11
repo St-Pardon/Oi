@@ -1,28 +1,67 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ModalContainer = styled.div`
-  z-index: 10;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 5px;
-  -webkit-box-shadow: 0px 0px 20px -5px #00000022;
-  box-shadow: 0px 0px 20px -5px #00000022;
-  max-width: 1000px;
-  width: 90%;
-  min-height: 600px;
-  background-color: white;
+
+  ${(props) =>
+    props.mode &&
+    css`
+      -webkit-box-shadow: 0px 0px 20px -5px #00000022;
+      box-shadow: 0px 0px 20px -5px #00000022;
+      background-color: white;
+      min-height: 600px;
+      z-index: 10;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 5px;
+      max-width: 1000px;
+      width: 90%;
+    `}
+
+  ${(props) =>
+    props.notification &&
+    css`
+      min-height: 150px;
+      top: 55px;
+      right: 50px;
+      min-width: 300px;
+    `}
+
+  ${(props) =>
+    props.option &&
+    css`
+      min-height: 150px;
+      top: 55px;
+      right: 15px;
+      min-width: 160px;
+    `}
 `;
 
 export const CloseModal = styled.button`
-  background-color: unset;
-  border: none;
-  float: right;
-  margin: 10px 15px 0 0;
-  cursor: pointer;
-  font-size: 25px;
-  color: #fff;
+  ${(props) =>
+    props.mode &&
+    css`
+      background-color: unset;
+      border: none;
+      float: right;
+      margin: 10px 15px 0 0;
+      cursor: pointer;
+      font-size: 25px;
+      color: #fff;
+    `}
+
+  ${(props) =>
+    props.notification &&
+    css`
+      display: none;
+    `}
+
+  ${(props) =>
+    props.option &&
+    css`
+      display: none;
+    `}
 `;
 
 export const Overlay = styled.div`
@@ -32,5 +71,11 @@ export const Overlay = styled.div`
   left: 0;
   z-index: 9;
   position: fixed;
-  background-color: #2a2a2aaa;
+  background-color: transparent;
+
+  ${(props) =>
+    props.mode &&
+    css`
+      background-color: #2a2a2aaa;
+    `}
 `;

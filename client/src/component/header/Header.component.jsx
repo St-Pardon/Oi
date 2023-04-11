@@ -5,7 +5,6 @@ import {
   Navlist,
   NavBar,
   Div,
-  ShowDropDown,
 } from './Header.styled';
 import logo from '../../assets/Oi-logo.png';
 import avi from '../../assets/avatar/avi.png';
@@ -17,10 +16,10 @@ import { useGetUser } from '../../services/query/query.service';
 import { HeadingH3 } from '../heading/headings.styled';
 import Dropdown from '../dropdown/dropdown.component';
 import { useState } from 'react';
+import Modal from '../modal/Modal.component';
 
 const Header = ({ route, isAuthenticated }) => {
   const { data, isLoading } = useGetUser(localStorage.getItem('userId'));
-  // const [open, setOpen] = useState(false);
   const [open, setOpen] = useState({ option: false, notification: false });
 
   return (
@@ -45,16 +44,26 @@ const Header = ({ route, isAuthenticated }) => {
             }
           >
             <MdNotifications size={'25px'} color="blue" />
-            <ShowDropDown
-              notification
-              style={
-                open.notification ? { display: 'block' } : { display: 'none' }
+            <Modal
+              open={open.notification}
+              onClose={() =>
+                setOpen({
+                  ...open,
+                  option: false,
+                  notification: !open.notification,
+                })
               }
+              notification={true}
+              // mode={true}
+              // notification
+              // style={
+              //   open.notification ? { display: 'block' } : { display: 'none' }
+              // }
             >
               <Dropdown>
                 <p>Notifications</p>
               </Dropdown>
-            </ShowDropDown>
+            </Modal>
           </Div>
           <Div
             onClick={() =>
@@ -73,9 +82,18 @@ const Header = ({ route, isAuthenticated }) => {
                 name
               >{`${data.first_name} ${data.last_name}`}</HeadingH3>
             )}
-            <ShowDropDown
-              profile
-              style={open.option ? { display: 'block' } : { display: 'none' }}
+            <Modal
+              open={open.option}
+              onClose={() =>
+                setOpen({
+                  ...open,
+                  option: !open.option,
+                  notification: false,
+                })
+              }
+              option={true}
+              // profile
+              // style={open.option ? { display: 'block' } : { display: 'none' }}
             >
               <Dropdown>
                 <p>Profile</p>
@@ -83,7 +101,7 @@ const Header = ({ route, isAuthenticated }) => {
                 <p>Help</p>
                 <p>Sign Out</p>
               </Dropdown>
-            </ShowDropDown>
+            </Modal>
           </Div>
         </Nav>
       ) : (
