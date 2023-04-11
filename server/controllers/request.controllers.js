@@ -14,6 +14,11 @@ class RequestController {
     const { user_id } = req.params;
     const { request_id } = req.body;
 
+    if (!user_id || !request_id) {
+      res.status(400).json({ error: 'Bad request' });
+      return;
+    }
+
     moreInfoModel
       .updateMany(
         { user_id: { $in: [user_id, request_id] } },
@@ -37,6 +42,12 @@ class RequestController {
    */
   static async getChatRequest(req, res) {
     const { user_id } = req.params;
+
+    if (!user_id) {
+      res.status(400).json({ error: 'Bad request' });
+      return;
+    }
+
     const user = await moreInfoModel.findOne({ user_id });
 
     if (!user) res.status(404).end('More user not found');
@@ -65,9 +76,11 @@ class RequestController {
   static async changeStatus(req, res) {
     const { user_id } = req.params;
     const { request_id, status } = req.query;
-    // const user1 = await moreInfoModel.findOne({ user_id });
-    // const user2 = await moreInfoModel.findOne({ user_id: request_id });
-    // check if request exist
+
+    if (!user_id || !request_id || !status) {
+      res.status(400).json({ error: 'Bad request' });
+      return;
+    }
 
     if (status === 'confirm') {
       try {
@@ -77,10 +90,8 @@ class RequestController {
             request: { $elemMatch: { request_id: request_id } },
           },
           {
-            // $set: { 'request.$.status': 'Confirmed' },
             $pull: {
               request: { request_id },
-              // request: { $elemMatch: { request_id: request_id } },
             },
           }
         );
@@ -101,6 +112,7 @@ class RequestController {
       }
       return;
     }
+
     if (status === 'reject') {
       try {
         await moreInfoModel.updateMany(
@@ -121,6 +133,7 @@ class RequestController {
       }
       return;
     }
+
     if (status === 'cancel') {
       moreInfoModel
         .updateMany(
@@ -143,7 +156,7 @@ class RequestController {
         });
       return;
     }
-    res.status(400).send('Invalid request');
+    res.status(400).json({ error: 'Invalid request' });
   }
 }
 
