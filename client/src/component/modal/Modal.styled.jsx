@@ -2,19 +2,34 @@ import styled, { css } from 'styled-components';
 
 export const ModalContainer = styled.div`
   position: fixed;
+  z-index: 10;
 
   ${(props) =>
     props.$mode === 'newchat' &&
     css`
-      -webkit-box-shadow: 0px 0px 20px -5px #00000022;
-      box-shadow: 0px 0px 20px -5px #00000022;
-      background-color: white;
       min-height: 600px;
-      z-index: 10;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 5px;
+      -webkit-box-shadow: 0px 0px 20px -5px #00000022;
+      box-shadow: 0px 0px 20px -5px #00000022;
+      background-color: white;
+      max-width: 1000px;
+      width: 90%;
+    `}
+
+  ${(props) =>
+    props.$mode === 'profile' &&
+    css`
+      min-height: 90vh;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 5px;
+      -webkit-box-shadow: 0px 0px 20px -5px #00000022;
+      box-shadow: 0px 0px 20px -5px #00000022;
+      background-color: white;
       max-width: 1000px;
       width: 90%;
     `}
@@ -56,6 +71,12 @@ export const CloseModal = styled.button`
     css`
       display: none;
     `}
+  
+    ${(props) =>
+    props.$mode === 'profile' &&
+    css`
+      display: none;
+    `}
 
   ${(props) =>
     props.$mode === 'option' &&
@@ -72,6 +93,12 @@ export const Overlay = styled.div`
   z-index: 9;
   position: fixed;
   background-color: transparent;
+
+  ${(props) =>
+    props.$mode === 'profile' &&
+    css`
+      background-color: #2a2a2aaa;
+    `}
 
   ${(props) =>
     props.$mode === 'newchat' &&

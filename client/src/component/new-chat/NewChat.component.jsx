@@ -19,7 +19,9 @@ import {
 const NewChat = () => {
   const [search, setSearch] = useState('');
 
-  const { data: chatlist, refetch: refetchChatlist } = useChatlist(localStorage.getItem('userId'));
+  const { data: chatlist, refetch: refetchChatlist } = useChatlist(
+    localStorage.getItem('userId')
+  );
   const {
     data: reqData,
     isLoading: loading,
@@ -102,17 +104,19 @@ const NewChat = () => {
         {loading ? (
           <p>No chat request</p>
         ) : reqData.length !== 0 ? (
-          reqData?.map((user, i) => (
-            <ChatRequest
-              key={i}
-              fullname={user?.fullname}
-              username={user?.username}
-              request_id={data?._id}
-              refetch={refetch}
-              refetchChatlist={refetchChatlist}
-              status="recieved"
-            />
-          ))
+          reqData
+            ?.filter((user) => user.id === localStorage.getItem('userId'))
+            .map((user, i) => (
+              <ChatRequest
+                key={i}
+                fullname={user?.fullname}
+                username={user?.username}
+                request_id={data?._id}
+                refetch={refetch}
+                refetchChatlist={refetchChatlist}
+                status="recieved"
+              />
+            ))
         ) : (
           <p>No chat request</p>
         )}

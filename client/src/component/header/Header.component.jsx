@@ -53,7 +53,7 @@ const Header = ({ route, isAuthenticated }) => {
                   notification: !open.notification,
                 })
               }
-              mode='notification'
+              mode="notification"
               // mode={true}
               // notification
               // style={
@@ -91,12 +91,14 @@ const Header = ({ route, isAuthenticated }) => {
                   notification: false,
                 })
               }
-              mode='option'
+              mode="option"
               // profile
               // style={open.option ? { display: 'block' } : { display: 'none' }}
             >
               <Dropdown>
-                <p>Profile</p>
+                <Link to={`profile/${localStorage.getItem('userId')}`}>
+                  <p>Profile</p>
+                </Link>
                 <p>Settings</p>
                 <p>Help</p>
                 <p>Sign Out</p>

@@ -1,5 +1,18 @@
 import styled, { css } from 'styled-components';
 
+export const Overlay = styled.label`
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Figure = styled.figure`
   overflow: hidden;
 
@@ -36,6 +49,11 @@ export const Figure = styled.figure`
       width: 200px;
       height: 200px;
       border-radius: 100%;
+      position: relative;
+
+      &:hover ${Overlay} {
+        display: flex;
+      }
     `}
   ${(props) =>
     props.welcome &&

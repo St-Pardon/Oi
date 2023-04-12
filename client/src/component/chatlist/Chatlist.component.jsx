@@ -10,7 +10,7 @@ import Modal from '../modal/Modal.component';
 import NewChat from '../new-chat/NewChat.component';
 
 const Chatlist = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const { isLoading, data } = useChatlist(localStorage.getItem('userId'));
 
   return (
@@ -29,12 +29,12 @@ const Chatlist = () => {
               </HeadingH3>
             </User>
           </Link>
-        ))
-      ) || <p>You don't have chats yet</p>}
+        )) || <p>You don't have chats yet</p>
+      )}
       <Modal open={open} onClose={() => setOpen(!open)} mode="newchat">
         <NewChat />
       </Modal>
-      <NewChatBtn onClick={()=>setOpen(!open)}>
+      <NewChatBtn onClick={() => setOpen(!open)}>
         <MdPersonAddAlt1 size={'25px'} />
         <p>New Chat</p>
       </NewChatBtn>
