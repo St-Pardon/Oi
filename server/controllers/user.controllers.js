@@ -27,7 +27,19 @@ class UserController {
   static async getUserById(req, res) {
     try {
       const { id } = req.params;
+      
+      if (!id || id == 'null') {
+        res.status(400).json({ error: 'Invalid request' });
+        return;
+      }
+
       const user = await userModel.findOne({ _id: id });
+
+      if (!user) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+      }
+
       res.status(200).send(user);
     } catch (err) {
       console.log(err);
@@ -43,12 +55,22 @@ class UserController {
   static async getUserByName(req, res) {
     try {
       const { name } = req.params;
+
+      if (!name) {
+        res.status(400).json({ error: 'Invalid request' });
+      }
+
       let user;
       if (name.includes('@')) {
         user = await userModel.findOne({ email: name });
       } else {
         user = await userModel.findOne({ username: name });
       }
+
+      if (!user) {
+        res.status(404).json({ error: 'User not found' });
+      }
+
       res.status(200).send(user);
     } catch (err) {
       console.log(err);
@@ -63,6 +85,10 @@ class UserController {
    */
   static async addMoreInfo(req, res) {
     const { user_id } = req.body;
+
+    if (!user_id) {
+      res.status(400).json({ error: 'Invalid request' });
+    }
 
     moreInfoModel.create({ user_id }).then((data) => {
       res
