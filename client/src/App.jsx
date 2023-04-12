@@ -1,74 +1,30 @@
 import './App.css';
 import LandingPage from './routes/landing-page/LandingPage.route';
 import Signin from './auth/signin/Signin.auth';
-import {
-  createBrowserRouter,
-  Link,
-  Navigate,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Signup from './auth/signup/Signup.auth';
 import Chat from './routes/chat/chat.route';
 import Messages from './routes/messages/Messages.route';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import Protected from './auth/protect/protect.auth';
-import NewChat from './component/new-chat/NewChat.component';
 import Profile from './routes/profile/Profile.route';
 import ChatHome from './component/chat-home/ChatHome.component';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
-let socket;
-const URI = 'ws://127.0.0.1:5230';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Modal from './component/modal/Modal.component';
 
 function App() {
-  const [user, setUser] = useState('');
-  const [chat, setChat] = useState('');
-  const [msgs, setMsgs] = useState([]);
-  const [to, setTo] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [connect, setConnect] = useState(false);
-
-  const connectChat = (username) => {
-    socket.auth = { username };
-    socket.connect();
-  };
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // socket = io.connect("http://localhost:5230")
-    socket = io(URI, {
-      autoConnect: false,
-      withCredentials: true,
-      extraHeaders: {},
-    });
-    // socket = io(URI)
-    if (connect) connectChat(localStorage.getItem('userId'));
-    // }, [URI])
-  }, [connect]);
-
-  useEffect(() => {
-    socket.on('message', ({ chat, to, from }) => {
-      console.log(chat, to, from);
-      setMsgs((msgs) => [...msgs, { chat, to, from }]);
-    });
-    socket.on('disconnect', ()=>{
-      console.log('user left')
-      socket.emit('backup', msgs)
-    })
-  }, [connect]);
-
-  const handleSend = () => {
-    if (chat) {
-      socket.emit(
-        'chat',
-        { to, from: localStorage.getItem('userId'), chat },
-        () => setChat('')
-      );
-      // setMsgs(msgs => [ ...msgs, chat ]);
-      setChat('');
+    if (window.location.href.split('/')[2]){
+      setOpen(!open)
     }
-  };
+
+  }, [window.location.pathname])
+  
 
   const router = createBrowserRouter([
     { path: '/', element: <LandingPage /> },
@@ -76,7 +32,6 @@ function App() {
       path: '/signin',
       element: (
         <Signin
-          setUser={setUser}
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
           socket={setConnect}
@@ -84,17 +39,19 @@ function App() {
       ),
     },
     { path: '/signup', element: <Signup /> },
-    { path: '/test', element: <Profile /> },
+    {
+      path: `/profile/:userId`,
+      element: <Profile />,
+      // children: [
+      //   path: ':userId'
+      // ]
+    },
+    // { path: '/test', element: <Profile /> },
     {
       path: '/chat',
-      // element: isAuthenticated ? (
-      //   <Chat user={user} isAuthenticated={isAuthenticated} />
-      // ) : (
-      //   <Navigate replace to="/signin" />
-      // ),
       element: (
         <Protected isAuthenticated={isAuthenticated} setConnect={setConnect}>
-          <Chat user={user} isAuthenticated={isAuthenticated} />
+          <Chat connect={connect} isAuthenticated={isAuthenticated} />
         </Protected>
       ),
       children: [
@@ -103,22 +60,21 @@ function App() {
           element: <ChatHome />,
         },
         {
-          path: ':recipient',
-          element: (
-            <Messages
-              handleSend={handleSend}
-              chat={chat}
-              msgs={msgs}
-              setChat={setChat}
-              to={to}
-              setTo={setTo}
-              user={user}
-            />
-          ),
+          path: ':userId',
+          element: <Messages />,
           children: [{ path: 'profile', element: <Profile /> }],
+        },
+        {
+          path: 'profile/:userId',
+          element: (
+            <Modal mode="profile" open={open} onClose={() => setOpen(!open)}>
+              <Profile />
+            </Modal>
+          ),
         },
       ],
     },
+    
   ]);
 
   const queryClient = new QueryClient();
