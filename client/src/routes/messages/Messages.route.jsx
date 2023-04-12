@@ -13,21 +13,21 @@ import { HeadingH3 } from '../../component/heading/headings.styled';
 import { Button } from '../../component/button/Button.component';
 import ChatBubble from '../../component/chat-bubble/ChatBubble.component';
 import { useEffect } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useOutletContext, useParams } from 'react-router-dom';
 import { MdOutlineMoreHoriz } from 'react-icons/md';
 import { useGetUser } from '../../services/query/query.service';
 
-const Messages = ({ user, chat, msgs, handleSend, setChat, to, setTo }) => {
-  const { recipient } = useParams();
-  const {data, isLoading} = useGetUser(recipient)
+const Messages = () => {
+  const { userId } = useParams();
+  const { data, isLoading } = useGetUser(userId);
+  const { chat, msgs, handleSend, setChat, setTo } = useOutletContext();
 
   useEffect(() => {
-    setTo(recipient);
-  }, [recipient]);
-
+    setTo(userId);
+  }, [userId]);
 
   const sendChat = (e) => {
-    setTo(recipient);
+    setTo(userId);
     handleSend(e);
   };
 
@@ -36,14 +36,18 @@ const Messages = ({ user, chat, msgs, handleSend, setChat, to, setTo }) => {
       <ChatSection>
         <HeaderSection>
           <Link to={'profile'}>
-          <UserInfo >
-            <Figure user>
-              <Img src={img} alt="user avatar" />
-            </Figure>{
-              isLoading ? null :
-              <HeadingH3 user>{data.display_name ? data.display_name : `${data.first_name} ${data.last_name}`}</HeadingH3>
-            }
-          </UserInfo>
+            <UserInfo>
+              <Figure user>
+                <Img src={img} alt="user avatar" />
+              </Figure>
+              {isLoading ? null : (
+                <HeadingH3 user>
+                  {data.display_name
+                    ? data.display_name
+                    : `${data.first_name} ${data.last_name}`}
+                </HeadingH3>
+              )}
+            </UserInfo>
           </Link>
           <MdOutlineMoreHoriz size={'30px'} />
         </HeaderSection>
@@ -51,8 +55,8 @@ const Messages = ({ user, chat, msgs, handleSend, setChat, to, setTo }) => {
           {msgs
             .filter(
               ({ to, from }) =>
-                (to === localStorage.getItem('userId') && from === recipient) ||
-                (to === recipient && from === localStorage.getItem('userId')) ||
+                (to === localStorage.getItem('userId') && from === userId) ||
+                (to === userId && from === localStorage.getItem('userId')) ||
                 from === 'admin'
             )
             .map(({ chat, from }, i) => {
