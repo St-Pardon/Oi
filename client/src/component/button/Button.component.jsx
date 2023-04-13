@@ -52,6 +52,14 @@ export const Button = styled.button`
     css`
       margin: 0;
     `}
+
+  ${(props) =>
+    props.profile &&
+    css`
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    `}
 `;
 
 export const BtnContainer = styled.div`
