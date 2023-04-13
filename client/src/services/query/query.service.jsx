@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   ChangeChatRequest,
   Chatlist,
+  EditUser,
   GetChatRequest,
   GetUserById,
   GetUserByUsername,
@@ -50,6 +51,14 @@ export const useSendChatRequest = (onSuccess, onError) => {
 
 export const useChangeChatRequest = (onSuccess, onError) => {
   return useMutation(ChangeChatRequest, {
+    networkMode: 'always',
+    onSuccess,
+    onError,
+  });
+};
+
+export const useEditUserProfile = (onSuccess, onError) => {
+  return useMutation(EditUser, {
     networkMode: 'always',
     onSuccess,
     onError,
