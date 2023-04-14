@@ -2,15 +2,13 @@ import express from 'express';
 import http from 'http';
 import { Server as Socket } from 'socket.io';
 import cors from 'cors';
-import { connectToMongoDB } from './config/db.config.js';
-import { userModel } from './models/user.models.js';
-import './middleware/auth.middleware.js';
-import { chatModel } from './models/chat.model.js';
-import AuthRoute from './routes/auth.routes.js';
-import UserRoute from './routes/user.routes.js';
-import ChatlistRoute from './routes/chatlist.routes.js';
-import { moreInfoModel } from './models/moreInfo.model.js';
-import ChatRequestRouter from './routes/chat-request.routes.js';
+import { connectToMongoDB } from './src/config/db.config.js';
+import './src/middleware/auth.middleware.js';
+import { chatModel } from './src/models/chat.model.js';
+import AuthRoute from './src/routes/auth.routes.js';
+import UserRoute from './src/routes/user.routes.js';
+import ChatlistRoute from './src/routes/chatlist.routes.js';
+import ChatRequestRouter from './src/routes/chat-request.routes.js';
 
 const PORT = process.env.PORT || 5000;
 const app = new express();
@@ -49,51 +47,66 @@ app
     res.status(200).send(history);
   });
 
-io.use((socket, next) => {
-  const username = socket.handshake.auth.username;
-  console.log(username);
-  if (!username) {
-    return next(new Error('invalid username'));
-  }
-  socket.username = username;
-  next();
-}).on('connection', (socket) => {
-  // ChatSession.push({chatId: socket.id});
-  ChatSession.push({ chatId: socket.id, username: socket.username });
-  console.log('We have a new connection', socket.id);
-  console.log(ChatSession);
-  socket.emit('message', {
-    chat: 'hello everyone',
-    to: socket.username,
-    from: 'admin',
-  });
-  // console.log('We have a new connection', socket.username);
+io
+  // socket missleware to setup userId to chatId
+  .use((socket, next) => {
+    const username = socket.handshake.auth.username;
 
-  // const users = [];
-  // for (let [id, socket] of io.of('/').sockets) {
-  //   users.push({
-  //     userID: id,
-  //     username: socket.username,
-  //   });
-  // }
-  // socket.emit('users', users);
+    if (!username) {
+      return next(new Error({ error: 'invalid username' }));
+    }
 
-  // console.log('We have a new connection', socket);
-  socket.on('chat', ({ to, from, chat }) => {
-    let reciver = ChatSession.find((user) => user.username === to);
-    io.to(reciver.chatId).to(socket.id).emit('message', { to, from, chat });
-  });
-
-  socket.on('backup', (data) => {
-    console.log(data);
-  });
-  socket.on('disconnect', () => {
-    ChatSession.splice(
-      ChatSession.findIndex((user) => user.chatId === socket.id)
+    socket.username = username;
+    next();
+  })
+  // handles sockect connection
+  .on('connection', (socket) => {
+    const idx = ChatSession.findIndex(
+      (user) => user.username === socket.username
     );
-    console.log('User left');
+
+    if (ChatSession && idx !== -1) {
+      ChatSession[idx].chatId = socket.id;
+    }
+
+    if (idx === -1) {
+      ChatSession.push({ chatId: socket.id, username: socket.username });
+    }
+
+    console.log(ChatSession);
+    socket.emit('message', {
+      chat: 'hello everyone',
+      to: socket.username,
+      from: 'admin',
+    });
+    // console.log('We have a new connection', socket.username);
+
+    // const users = [];
+    // for (let [id, socket] of io.of('/').sockets) {
+    //   users.push({
+    //     userID: id,
+    //     username: socket.username,
+    //   });
+    // }
+    // socket.emit('users', users);
+
+    // console.log('We have a new connection', socket);
+    socket
+      .on('chat', ({ to, from, chat }) => {
+        let reciver = ChatSession.find((user) => user.username === to);
+        io.to(reciver.chatId).to(socket.id).emit('message', { to, from, chat });
+      })
+
+      // socket.on('backup', (data) => {
+      //   console.log(data);
+      // });
+      .on('disconnect', () => {
+        ChatSession.splice(
+          ChatSession.findIndex((user) => user.chatId === socket.id)
+        );
+        console.log('User left');
+      });
   });
-});
 
 connectToMongoDB();
 server.listen(PORT, () => {
