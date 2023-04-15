@@ -9,7 +9,7 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import { FiEdit } from 'react-icons/fi';
 import { useState } from 'react';
 import { Button } from '../../component/button/Button.component';
-import imageUploader from '../../../utils/imageUploader';
+import imageUploader from '../../utils/imageUploader';
 import { useMutation } from '@tanstack/react-query';
 
 const Profile = () => {
