@@ -6,6 +6,7 @@ import {
   ExtractJwt as ExtractJWT,
   Strategy as JWTstrategy,
 } from 'passport-jwt';
+import { moreInfoModel } from '../models/moreInfo.model.js';
 
 // const passport = require("passport");
 // const { userModel } = require("../models/user.model");
@@ -62,6 +63,8 @@ passport
           }
 
           const user = await userModel.create({ ...data, email, password });
+          await moreInfoModel.create({ user_id: user._id });
+          
           return done(null, user);
         } catch (error) {
           console.log('some err');

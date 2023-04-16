@@ -6,6 +6,6 @@ const UserRoute = Router();
 UserRoute.get('/:id', UserController.getUserById)
   .get('/username/:name', UserController.getUserByName)
   .post('/more', UserController.addMoreInfo)
-  .patch('/user/:user_id/edit', UserController.editUserInfo);
+  .patch('/:user_id/edit', UserController.editUserInfo);
 
 export default UserRoute;
