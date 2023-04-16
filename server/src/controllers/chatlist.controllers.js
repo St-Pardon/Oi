@@ -1,3 +1,4 @@
+import { moreInfoModel } from '../models/moreInfo.model.js';
 import { userModel } from '../models/user.models.js';
 
 /**
@@ -13,11 +14,13 @@ class ChatlistController {
     const { id } = req.params;
     const user = await userModel.findOne({ _id: id });
     let chatlist = user.chatlist.map(async (item) => {
+      const moreInfo = await moreInfoModel.findOne({ user_id: item });
       const res = await userModel.findOne({ _id: item });
       return {
         id: res._id,
         display_name: res.display_name,
         fullname: `${res.first_name} ${res.last_name}`,
+        display_picture: moreInfo.display_picture,
       };
     });
     Promise.all(chatlist)

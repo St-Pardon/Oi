@@ -34,13 +34,13 @@ class UserController {
       }
 
       const user = await userModel.findOne({ _id: id });
+      const moreInfo = await moreInfoModel.findOne({user_id: id})
 
       if (!user) {
         res.status(404).json({ error: 'User not found' });
         return;
       }
-
-      res.status(200).send(user);
+      res.status(200).send({...moreInfo._doc, ...user._doc,});
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
@@ -66,12 +66,14 @@ class UserController {
       } else {
         user = await userModel.findOne({ username: name });
       }
+      const moreInfo = await moreInfoModel.findOne({user_id: user._id})
+
 
       if (!user) {
         res.status(404).json({ error: 'User not found' });
       }
 
-      res.status(200).send(user);
+      res.status(200).send({...moreInfo._doc, ...user._doc});
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
@@ -98,15 +100,22 @@ class UserController {
   }
 
   static async editUserInfo(req, res) {
-    const { body } = req;
-    const { user_id } = req.params;
-
-    if (!user_id) {
-      res.status(400).json({ error: 'Invalid request' });
-    }
-
-    if (!body) {
-      res.status(400).json({ error: 'Bad Request: No data submitted' });
+    try {
+      
+      const { link } = req.body;
+      const { user_id } = req.params;
+      
+      if (!user_id) {
+        res.status(400).json({ error: 'Invalid request' });
+      }
+      
+      if (!link) {
+        res.status(400).json({ error: 'Bad Request: No data submitted' });
+      }
+      await moreInfoModel.updateOne({user_id}, {display_picture: link}, { new: true })
+      res.status(200).send('ok')
+    } catch (error) {
+      console.log(error)
     }
   }
 }

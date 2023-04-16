@@ -13,7 +13,6 @@ class RequestController {
   static async sendChatRequest(req, res) {
     const { user_id } = req.params;
     const { request_id } = req.body;
-
     if (!user_id || !request_id) {
       res.status(400).json({ error: 'Bad request' });
       return;
@@ -23,7 +22,7 @@ class RequestController {
       .updateMany(
         { user_id: { $in: [user_id, request_id] } },
         {
-          $push: { request: { request_id } },
+          $push: { request: { request_id, sender_id: user_id } },
         },
         { multi: true, new: true }
       )
@@ -56,7 +55,10 @@ class RequestController {
       const res = await userModel.findOne({ _id: item.request_id });
       return {
         id: res._id,
+        request_id: item.request_id,
+        sender_id: item.sender_id,
         display_name: res.display_name,
+        display_picture: user.display_picture,
         fullname: `${res.first_name} ${res.last_name}`,
         username: res.username,
         date: item.time,
@@ -77,6 +79,7 @@ class RequestController {
     const { user_id } = req.params;
     const { request_id, status } = req.query;
 
+    console.log(request_id);
     if (!user_id || !request_id || !status) {
       res.status(400).json({ error: 'Bad request' });
       return;
