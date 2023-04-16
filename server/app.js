@@ -5,15 +5,11 @@ import cors from 'cors';
 import { connectToMongoDB } from './src/config/db.config.js';
 import './src/middleware/auth.middleware.js';
 import { chatModel } from './src/models/chat.model.js';
-import AuthRoute from './src/routes/auth.routes.js';
-import UserRoute from './src/routes/user.routes.js';
-import ChatlistRoute from './src/routes/chatlist.routes.js';
-import ChatRequestRouter from './src/routes/chat-request.routes.js';
+import indexRoute from './src/routes/index.route.js';
 
 const PORT = process.env.PORT || 5000;
 const app = new express();
 const server = http.createServer(app);
-const v1 = '/api/v1/';
 const io = new Socket(server, {
   cors: {
     origin: 'http://localhost:5173',
@@ -29,13 +25,7 @@ app
   .use(express.json())
   .use(express.static('public'))
   .use(express.urlencoded({ extended: false }))
-  .use(`${v1}auth`, AuthRoute)
-  .use(`${v1}user/`, UserRoute)
-  .use(`${v1}chatlist/`, ChatlistRoute)
-  .use(`${v1}request`, ChatRequestRouter)
-  .get('/', (req, res) => {
-    res.status(200).end('Kindly refer to the API documentation to et started');
-  })
+  .use(indexRoute)
   .get('/chats', async (req, res) => {
     const { senderId, recipientId } = req.params;
     const chats = await chatModel.find();
