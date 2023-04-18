@@ -15,6 +15,7 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   phone_no: { type: String, required: true },
   chatlist: [String],
+  group: [String]
 });
 
 // Encrypt user password
