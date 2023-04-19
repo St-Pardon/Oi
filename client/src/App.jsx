@@ -19,12 +19,12 @@ function App() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (window.location.href.split('/')[2]){
-      setOpen(!open)
+    if (window.location.href.split('/')[2]) {
+      setOpen(!open);
+      // return;
     }
-
-  }, [window.location.pathname])
-  
+    // setOpen(false);
+  }, []);
 
   const router = createBrowserRouter([
     { path: '/', element: <LandingPage /> },
@@ -51,7 +51,7 @@ function App() {
       path: '/chat',
       element: (
         <Protected isAuthenticated={isAuthenticated} setConnect={setConnect}>
-          <Chat connect={connect} isAuthenticated={isAuthenticated} />
+          <Chat setIsAuthenticated={setIsAuthenticated} connect={connect} isAuthenticated={isAuthenticated} />
         </Protected>
       ),
       children: [
@@ -74,7 +74,6 @@ function App() {
         },
       ],
     },
-    
   ]);
 
   const queryClient = new QueryClient();
