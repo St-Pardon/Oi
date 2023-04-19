@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 let socket;
 const URI = 'ws://127.0.0.1:5230';
 
-const Chat = ({ isAuthenticated, connect }) => {
+const Chat = ({ isAuthenticated, connect, setIsAuthenticated }) => {
   const [chat, setChat] = useState('');
   const [msgs, setMsgs] = useState([]);
   const [to, setTo] = useState('');
@@ -54,7 +54,7 @@ const Chat = ({ isAuthenticated, connect }) => {
 
   return (
     <>
-      <Header isAuthenticated={isAuthenticated} />
+      <Header setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} />
       <ChatContainer>
         <Chatlist />
         <Outlet context={{ chat, setChat, msgs, handleSend, setTo }} />

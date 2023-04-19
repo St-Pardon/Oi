@@ -16,12 +16,17 @@ const ChatRequest = ({
   username,
   status,
   request_id,
+  sender_id,
   refetch,
   refetchChatlist,
+  dp,
 }) => {
-  const onSuccess = () => {
+  const onSuccess = (e) => {
+    console.log(e)
     if (refetchChatlist) {
       refetchChatlist();
+      window.location.reload(false)
+
     }
     refetch();
   };
@@ -35,7 +40,7 @@ const ChatRequest = ({
     <RequestContainer main>
       <RequestContainer name>
         <Figure user>
-          <Img src={avi} alt="user avatar" />
+          <Img src={dp} alt="user avatar" />
         </Figure>
         <div>
           <HeadingH3>
@@ -54,7 +59,7 @@ const ChatRequest = ({
         ) : status === 'new' ? (
           <Button
             onClick={() =>
-              mutate({ userId: localStorage.getItem('userId'), request_id })
+              mutate({ userId: localStorage.getItem('userId'), request_id, sender_id: localStorage.getItem('userId'), })
             }
             primary
             request
@@ -81,11 +86,10 @@ const ChatRequest = ({
               primary
               onClick={() => (
                 change({
-                  userId: localStorage.getItem('userId'),
+                  sender_id,
                   request_id,
                   status: 'confirm',
-                }),
-                window.location.reload(false)
+                })
               )}
             >
               {' '}

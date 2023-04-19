@@ -18,6 +18,11 @@ export const HeadingH2 = styled.h2`
     css`
       font-size: 3.5rem;
     `}
+  ${(props) =>
+    props.team &&
+    css`
+      text-align: center;
+    `}
 `;
 
 export const HeadingH3 = styled.h3`
@@ -26,10 +31,17 @@ export const HeadingH3 = styled.h3`
     css`
       font-size: 1.5rem;
     `}
+
   ${(props) =>
     props.name &&
     css`
       text-transform: capitalize;
+    `}
+
+  ${(props) =>
+    props.contribute &&
+    css`
+      font-size: 2.3rem;
     `}
 `;
 
@@ -54,5 +66,18 @@ export const Para = styled.p`
     css`
       font-size: 1.5rem;
       margin-bottom: 0.5em;
+    `}
+   
+    ${(props) =>
+    props.about &&
+    css`
+      line-height: 40px;
+    `}
+    
+    ${(props) =>
+    props.team &&
+    css`
+      line-height: 30px;
+      margin: 20px 0;
     `}
 `;

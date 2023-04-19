@@ -9,6 +9,7 @@ export const HeaderContainer = styled.header`
   justify-content: space-evenly;
   color; #000000;
   align-items: center;
+  z-index: 10;
 `;
 
 export const Nav = styled.nav`
@@ -39,6 +40,10 @@ export const NavBar = styled.ul`
 export const Navlist = styled.li`
   color: #3ababf;
   padding: 7px 20px;
+
+  &:hover{
+    background-color: #075471;
+  }
 `;
 
 export const Logo = styled.img`

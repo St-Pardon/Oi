@@ -38,7 +38,7 @@ const Messages = () => {
           <Link to={'profile'}>
             <UserInfo>
               <Figure user>
-                <Img src={img} alt="user avatar" />
+                <Img src={data?.display_picture} alt="user avatar" />
               </Figure>
               {isLoading ? null : (
                 <HeadingH3 user>

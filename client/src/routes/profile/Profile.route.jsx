@@ -1,16 +1,15 @@
 import { Figure, Img, Overlay } from '../../component/image/image.styled';
 import { BioSection, Close, ProfileContainer, Upload } from './Profile.styled';
-import avi from '../../assets/avatar/avi.png';
+// import avi from '../../assets/avatar/avi.png';
 import { HeadingH2, HeadingH3 } from '../../component/heading/headings.styled';
 import { MdClose, MdOutlineSaveAlt } from 'react-icons/md';
 import { Link, useParams } from 'react-router-dom';
-import { useGetUser } from '../../services/query/query.service';
+import { useEditUserProfile, useGetUser } from '../../services/query/query.service';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { FiEdit } from 'react-icons/fi';
 import { useState } from 'react';
 import { Button } from '../../component/button/Button.component';
 import imageUploader from '../../utils/imageUploader';
-import { useMutation } from '@tanstack/react-query';
 
 const Profile = () => {
   const { userId } = useParams();
@@ -25,16 +24,17 @@ const Profile = () => {
     console.log(err);
   };
 
-  const { mutate } = useMutation(onSuccess, onError);
+  const { mutate } = useEditUserProfile(onSuccess, onError);
 
   const handleChange = async (e) => {
-    const link = imageUploader(e.target.files[0]);
+    const link = await imageUploader(e.target.files[0]);
 
     if (!link) {
+      console.log('not showing')
       return;
     }
-
-    mutate(link.toString());
+    console.log(link)
+    mutate({link: link.toString()});
   };
 
   return (
@@ -51,7 +51,9 @@ const Profile = () => {
       {userId === localStorage.getItem('userId') ? (
         <Button onClick={() => setEdit(!edit)} profile>
           {edit ? (
-            <><MdOutlineSaveAlt /> Save</>
+            <>
+              <MdOutlineSaveAlt /> Save
+            </>
           ) : (
             <>
               <FiEdit /> Edit
@@ -65,7 +67,7 @@ const Profile = () => {
         <>
           <BioSection>
             <Figure profile>
-              <Img src={avi} alt="user avatar" />
+              <Img src={data?.display_picture} alt="user avatar" />
               {edit ? (
                 <Overlay htmlFor="upload">
                   {/* <label htmlFor="upload"> */}

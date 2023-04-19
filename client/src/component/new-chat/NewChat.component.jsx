@@ -69,6 +69,7 @@ const NewChat = () => {
               last_name={data?.last_name}
               username={data?.username}
               request_id={data?._id}
+              dp={data.display_picture}
               refetch={refetch}
               status="chat"
             />
@@ -78,6 +79,7 @@ const NewChat = () => {
               last_name={data?.last_name}
               username={data?.username}
               request_id={data?._id}
+              dp={data.display_picture}
               refetch={refetch}
               status="new"
             />
@@ -88,6 +90,7 @@ const NewChat = () => {
               last_name={data?.last_name}
               username={data?.username}
               request_id={data?._id}
+              dp={data.display_picture}
               refetch={refetch}
               status="pending"
             />
@@ -111,7 +114,9 @@ const NewChat = () => {
                 key={i}
                 fullname={user?.fullname}
                 username={user?.username}
-                request_id={data?._id}
+                request_id={user?.request_id}
+                sender_id={user?.sender_id}
+                dp={user?.display_picture}
                 refetch={refetch}
                 refetchChatlist={refetchChatlist}
                 status="recieved"

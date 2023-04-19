@@ -22,7 +22,7 @@ const Chatlist = () => {
           <Link to={item.id} key={i}>
             <User>
               <Figure user>
-                <Img src={avi} alt="User's avatar" />
+                <Img src={item.display_picture} alt="User's avatar" />
               </Figure>
               <HeadingH3 user>
                 {item.display_name ? item.display_name : item.fullname}
