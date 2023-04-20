@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BaseURI = 'http://127.0.0.1:5230/api/v1';
+const BaseURI = 'https://oi-n1ic.onrender.com/api/v1';
 
 /**
  * Create a new user
