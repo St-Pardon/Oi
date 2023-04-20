@@ -1,17 +1,17 @@
 import './App.css';
-import LandingPage from './routes/landing-page/LandingPage.route';
-import Signin from './auth/signin/Signin.auth';
+import LandingPage from './routes/landing-page/LandingPage.route.jsx';
+import Signin from './auth/signin/Signin.auth.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Signup from './auth/signup/Signup.auth';
-import Chat from './routes/chat/chat.route';
-import Messages from './routes/messages/Messages.route';
+import Signup from './auth/signup/Signup.auth.jsx';
+import Chat from './routes/chat/chat.route.jsx';
+import Messages from './routes/messages/Messages.route.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import Protected from './auth/protect/protect.auth';
-import Profile from './routes/profile/Profile.route';
-import ChatHome from './component/chat-home/ChatHome.component';
+import Protected from './auth/protect/protect.auth.jsx';
+import Profile from './routes/profile/Profile.route.jsx';
+import ChatHome from './component/chat-home/ChatHome.component.jsx';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import Modal from './component/modal/Modal.component';
+import Modal from './component/modal/Modal.component.jsx';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
