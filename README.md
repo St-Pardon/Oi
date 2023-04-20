@@ -1,6 +1,10 @@
 # Oi
 A real-time chat application
 
+[![Last Commit](https://badgen.net/github/last-commit/St-Pardon/oi/main)](https://github.com/St-Pardon/oi/commit)
+[![Stars](https://badgen.net/github/stars/St-Pardon/oi/)](https://github.com/St-Pardon/oi/commit)
+[![License](https://badgen.net/github/license/St-Pardon/oi/)](https://github.com/St-Pardon/oi/license)
+
 ## About
 Oi! is a Real-Time Application project, where user can send and receive messages from friends and loved ones, the application is authenticated, and user can send and receive request from other user, the web app will maintain session of the user and save their chat. The user will have the ability to blacklist and unblock a user.
 
@@ -50,3 +54,7 @@ The people resonsible for bring this to live includes
 - [Onyedikachi Onu](https://st-pardon.netlify.app)
 
 ## Contributions
+
+
+## License
+Project source code is licensed under the MIT license. You are free to fork this repository, edit the code, share and use it both for non-commercial and commercial purposes
