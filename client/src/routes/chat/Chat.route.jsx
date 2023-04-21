@@ -2,7 +2,6 @@ import Chatlist from '../../component/chatlist/Chatlist.component';
 import { ChatContainer } from './chat.styled';
 import { Outlet } from 'react-router-dom';
 import Header from '../../component/header/Header.component';
-
 import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 
