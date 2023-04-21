@@ -54,7 +54,7 @@ The people resonsible for bring this to live includes
 - [Onyedikachi Onu](https://st-pardon.netlify.app)
 
 ## Contributions
-
+If you wish to contribute to this project, read the following [rules and gudieline](./Contribution.md) to get started
 
 ## License
 Project source code is licensed under the MIT license. You are free to fork this repository, edit the code, share and use it both for non-commercial and commercial purposes
