@@ -9,9 +9,9 @@ import { useEffect, useState } from 'react';
 import Protected from './auth/protect/protect.auth';
 import Profile from './routes/profile/Profile.route';
 import ChatHome from './component/chat-home/ChatHome.component';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Modal from './component/modal/Modal.component';
-import Chat from './routes/chat/chat.route';
+import Chat from './routes/chat/Chat.route';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -72,7 +72,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }

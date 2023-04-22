@@ -120,7 +120,7 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
           </Div>
         </Nav>
       ) : (
-        <Nav>
+        <Nav nav>
           <NavBar>
             <a href="/">
               <Navlist>Home</Navlist>

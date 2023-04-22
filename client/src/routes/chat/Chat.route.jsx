@@ -6,7 +6,7 @@ import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 
 let socket;
-const URI = 'ws://127.0.0.1:5230';
+const URI = 'https://oi-n1ic.onrender.com';
 
 const Chat = ({ isAuthenticated, connect, setIsAuthenticated }) => {
   const [chat, setChat] = useState('');

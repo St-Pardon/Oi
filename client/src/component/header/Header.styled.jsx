@@ -19,6 +19,12 @@ export const Nav = styled.nav`
   justify-content: flex-end;
 
   ${(props) =>
+    props.nav &&
+    css`
+      width: 60%;
+    `}
+
+  ${(props) =>
     props.logo &&
     css`
       justify-content: flex-start;
