@@ -10,14 +10,7 @@ import indexRoute from './src/routes/index.route.js';
 const PORT = process.env.PORT || 5000;
 const app = new express();
 const server = http.createServer(app);
-const io = new Socket(server, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['*'],
-    credentials: true,
-  },
-});
+const io = new Socket(server);
 const ChatSession = [];
 
 app
