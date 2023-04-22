@@ -1,11 +1,14 @@
-import express from 'express';
-import http from 'http';
-import { Server as Socket } from 'socket.io';
 import cors from 'cors';
+import http from 'http';
+import express from 'express';
+// import SwaggerUI from 'swagger-ui-express';
+import { Server as Socket } from 'socket.io';
 import { connectToMongoDB } from './src/config/db.config.js';
 import './src/middleware/auth.middleware.js';
 import { chatModel } from './src/models/chat.model.js';
 import indexRoute from './src/routes/index.route.js';
+import { errHandler } from './src/middleware/error.middleware.js';
+// import './swagger.json'
 
 const PORT = process.env.PORT || 5000;
 const app = new express();
@@ -23,8 +26,8 @@ const ChatSession = [];
 app
   .use(cors())
   .use(express.json())
-  .use(express.static('public'))
   .use(express.urlencoded({ extended: false }))
+  .use(errHandler)
   .use(indexRoute)
   .get('/chats', async (req, res) => {
     const { senderId, recipientId } = req.params;
@@ -62,34 +65,12 @@ io
     if (idx === -1) {
       ChatSession.push({ chatId: socket.id, username: socket.username });
     }
-
-    console.log(ChatSession);
-    socket.emit('message', {
-      chat: 'hello everyone',
-      to: socket.username,
-      from: 'admin',
-    });
-    // console.log('We have a new connection', socket.username);
-
-    // const users = [];
-    // for (let [id, socket] of io.of('/').sockets) {
-    //   users.push({
-    //     userID: id,
-    //     username: socket.username,
-    //   });
-    // }
-    // socket.emit('users', users);
-
-    // console.log('We have a new connection', socket);
     socket
       .on('chat', ({ to, from, chat }) => {
         let reciver = ChatSession.find((user) => user.username === to);
         io.to(reciver.chatId).to(socket.id).emit('message', { to, from, chat });
       })
 
-      // socket.on('backup', (data) => {
-      //   console.log(data);
-      // });
       .on('disconnect', () => {
         ChatSession.splice(
           ChatSession.findIndex((user) => user.chatId === socket.id)
