@@ -1,14 +1,12 @@
 import cors from 'cors';
 import http from 'http';
 import express from 'express';
-// import SwaggerUI from 'swagger-ui-express';
 import { Server as Socket } from 'socket.io';
 import { connectToMongoDB } from './src/config/db.config.js';
 import './src/middleware/auth.middleware.js';
 import { chatModel } from './src/models/chat.model.js';
 import indexRoute from './src/routes/index.route.js';
 import { errHandler } from './src/middleware/error.middleware.js';
-// import './swagger.json'
 
 const PORT = process.env.PORT || 5000;
 const app = new express();

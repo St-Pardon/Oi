@@ -5,7 +5,7 @@ import UserRoute from './user.routes.js';
 import ChatlistRoute from './chatlist.routes.js';
 import ChatRequestRouter from './chat-request.routes.js';
 import GroupRoute from './group.routes.js';
-import swaggerDocument from '../../swagger.json' assert { type: 'json' }
+// import swaggerDocument from '../../swagger.json' assert { type: 'json' }
 
 
 const v1 = '/api/v1/';
@@ -17,11 +17,11 @@ indexRoute
   .use(`${v1}chatlist/`, ChatlistRoute)
   .use(`${v1}request`, ChatRequestRouter)
   .use(`${v1}group`, GroupRoute)
-  .use(
-    '/api-docs',
-    swaggerUi.serve, 
-    swaggerUi.setup(swaggerDocument)
-  )
+  // .use(
+  //   '/api-docs',
+  //   swaggerUi.serve, 
+  //   swaggerUi.setup(swaggerDocument)
+  // )
   .get('/', (req, res) => {
     res.status(200).end('Kindly refer to the API documentation to get started');
   });
