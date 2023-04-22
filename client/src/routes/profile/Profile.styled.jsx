@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 export const ProfileContainer = styled.section`
   width: 90%;
@@ -7,8 +7,18 @@ export const ProfileContainer = styled.section`
   position: relative;
 `;
 
-export const BioSection = styled.div`
-  text-align: center;
+export const Section = styled.div`
+  ${(props) =>
+    props.bio &&
+    css`
+      text-align: center;
+    `}
+  
+    ${(props) =>
+    props.about &&
+    css`
+      min-height: 150px;
+    `}
 `;
 
 export const Close = styled.div`
@@ -19,3 +29,10 @@ export const Close = styled.div`
 export const Upload = styled.input`
   visibility: hidden;
 `;
+
+export const TextArea = styled.textarea`
+width: 95%;
+min-height: 100px;
+padding: 10px;
+resize:none;
+`

@@ -46,8 +46,9 @@ export const NavBar = styled.ul`
 export const Navlist = styled.li`
   color: #3ababf;
   padding: 7px 20px;
+  list-style: none;
 
-  &:hover{
+  &:hover {
     background-color: #075471;
   }
 `;
@@ -83,6 +84,12 @@ export const Div = styled.div`
   gap: 10px;
   align-items: center;
   position: relative;
+
+  ${(props) =>
+    props.user &&
+    css`
+      cursor: pointer;
+    `}
 
   &:hover ${ShowDropDown} {
     display: block;

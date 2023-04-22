@@ -30,6 +30,7 @@ export const Button = styled.button`
       background: rgb(155, 44, 44);
       border-color: rgb(155, 44, 44);
       color: white;
+
       &:hover {
         background: rgb(155, 44, 44);
         color: white;
@@ -54,11 +55,26 @@ export const Button = styled.button`
     `}
 
   ${(props) =>
-    props.profile &&
+    props.edit &&
     css`
       display: flex;
       align-items: center;
       gap: 10px;
+    `}
+
+  ${(props) =>
+    props.save &&
+    css`
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #075471;
+      color: white;
+      
+      &:hover {
+        background: white;
+        color: #075471;
+      }
     `}
 `;
 

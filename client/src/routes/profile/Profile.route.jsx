@@ -1,15 +1,18 @@
 import { Figure, Img, Overlay } from '../../component/image/image.styled';
-import { BioSection, Close, ProfileContainer, Upload } from './Profile.styled';
+import { Section, Close, ProfileContainer, Upload, TextArea } from './Profile.styled';
 // import avi from '../../assets/avatar/avi.png';
 import { HeadingH2, HeadingH3 } from '../../component/heading/headings.styled';
 import { MdClose, MdOutlineSaveAlt } from 'react-icons/md';
 import { Link, useParams } from 'react-router-dom';
-import { useEditUserProfile, useGetUser } from '../../services/query/query.service';
+import {
+  useEditUserProfile,
+  useGetUser,
+} from '../../services/query/query.service';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { FiEdit } from 'react-icons/fi';
 import { useState } from 'react';
 import { Button } from '../../component/button/Button.component';
-import imageUploader from '../../utils/imageUploader';
+import imageUploader from '../../utils/imageUploader.utils';
 
 const Profile = () => {
   const { userId } = useParams();
@@ -30,11 +33,11 @@ const Profile = () => {
     const link = await imageUploader(e.target.files[0]);
 
     if (!link) {
-      console.log('not showing')
+      console.log('not showing');
       return;
     }
-    console.log(link)
-    mutate({link: link.toString()});
+    console.log(link);
+    mutate({ link: link.toString() });
   };
 
   return (
@@ -49,23 +52,23 @@ const Profile = () => {
         </Link>
       </Close>
       {userId === localStorage.getItem('userId') ? (
-        <Button onClick={() => setEdit(!edit)} profile>
-          {edit ? (
-            <>
+        // <Button onClick={() => setEdit(!edit)} profile>
+          edit ? (
+            <Button onClick={() => setEdit(!edit)} save>
               <MdOutlineSaveAlt /> Save
-            </>
+            </Button>
           ) : (
-            <>
+            <Button onClick={() => setEdit(!edit)} edit>
               <FiEdit /> Edit
-            </>
-          )}
-        </Button>
+            </Button>
+          )
+
       ) : null}
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <>
-          <BioSection>
+          <Section bio>
             <Figure profile>
               <Img src={data?.display_picture} alt="user avatar" />
               {edit ? (
@@ -84,7 +87,18 @@ const Profile = () => {
             <HeadingH3>
               <em>@{data?.username}</em>
             </HeadingH3>
-          </BioSection>
+          </Section>
+          <Section about>
+            <HeadingH3>
+              About
+            </HeadingH3>
+            {edit ? <><TextArea value={data?.about}></TextArea><Button save>Save</Button></> : <p>{data?.about}</p>}
+          </Section>
+          <Section>
+            <HeadingH3>
+              Files
+            </HeadingH3>
+          </Section>
         </>
       )}
     </ProfileContainer>

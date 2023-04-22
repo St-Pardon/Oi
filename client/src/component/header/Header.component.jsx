@@ -31,9 +31,13 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
   const [open, setOpen] = useState({ option: false, notification: false });
 
   const handleSignOut = () => {
-    setIsAuthenticated(false);
+    if (localStorage.getItem('userId')){
+      <Navigate replace to="/signin" />;
+      setIsAuthenticated(false);
+      localStorage.clear();
+      return
+    }
     <Navigate replace to="/signin" />;
-    localStorage.clear();
   };
   return (
     <HeaderContainer>
@@ -78,7 +82,7 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
               </Dropdown>
             </Modal>
           </Div>
-          <Div
+          <Div user
             onClick={() =>
               setOpen({
                 ...open,
@@ -110,11 +114,17 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
             >
               <Dropdown>
                 <Link to={`profile/${localStorage.getItem('userId')}`}>
-                  <p>Profile</p>
+                  <Navlist>Profile</Navlist>
                 </Link>
-                <p>Settings</p>
-                <p>Help</p>
-                <p onClick={handleSignOut}>Sign Out</p>
+                <Link to={''}>
+                  <Navlist>Settings</Navlist>
+                </Link>
+                <Link to={''}>
+                  <Navlist>Help</Navlist>
+                </Link>
+                <Link to={''}>
+                  <Navlist onClick={handleSignOut}>Sign Out</Navlist>
+                </Link>
               </Dropdown>
             </Modal>
           </Div>
@@ -123,16 +133,16 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
         <Nav nav>
           <NavBar>
             <a href="/">
-              <Navlist>Home</Navlist>
+              <Navlist unauth>Home</Navlist>
             </a>
             <a href="#about">
-              <Navlist>About</Navlist>
+              <Navlist unauth>About</Navlist>
             </a>
             <a href="#feature">
-              <Navlist>Features</Navlist>
+              <Navlist unauth>Features</Navlist>
             </a>
             <a href="#contribute">
-              <Navlist>Contribute</Navlist>
+              <Navlist unauth>Contribute</Navlist>
             </a>
           </NavBar>
           <BtnContainer>

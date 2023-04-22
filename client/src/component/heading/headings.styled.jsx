@@ -12,6 +12,7 @@ export const HeadingH2 = styled.h2`
     props.profile &&
     css`
       font-size: 2.5rem;
+      text-transform: capitalize;
     `}
   ${(props) =>
     props.welcome &&
@@ -30,6 +31,8 @@ export const HeadingH3 = styled.h3`
     props.user &&
     css`
       font-size: 1.5rem;
+      color: #075471;
+      text-transform: capitalize;
     `}
 
   ${(props) =>
