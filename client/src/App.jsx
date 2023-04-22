@@ -11,7 +11,7 @@ import Profile from './routes/profile/Profile.route';
 import ChatHome from './component/chat-home/ChatHome.component';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Modal from './component/modal/Modal.component';
-// import Chat from './routes/chat/chat.route';
+import Chat from './routes/chat/chat.route';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,40 +40,32 @@ function App() {
     },
     { path: '/signup', element: <Signup /> },
     {
-      path: `/profile/:userId`,
-      element: <Profile />,
-      // children: [
-      //   path: ':userId'
-      // ]
+      path: '/chat',
+      element: (
+        <Protected isAuthenticated={isAuthenticated} setConnect={setConnect}>
+          <Chat setIsAuthenticated={setIsAuthenticated} connect={connect} isAuthenticated={isAuthenticated} />
+        </Protected>
+      ),
+      children: [
+        {
+          index: true,
+          element: <ChatHome />,
+        },
+        {
+          path: ':userId',
+          element: <Messages />,
+          children: [{ path: 'profile', element: <Profile /> }],
+        },
+        {
+          path: 'profile/:userId',
+          element: (
+            <Modal mode="profile" open={open} onClose={() => setOpen(!open)}>
+              <Profile />
+            </Modal>
+          ),
+        },
+      ],
     },
-    // { path: '/test', element: <Profile /> },
-    // {
-    //   path: '/chat',
-    //   element: (
-    //     <Protected isAuthenticated={isAuthenticated} setConnect={setConnect}>
-    //       <Chat setIsAuthenticated={setIsAuthenticated} connect={connect} isAuthenticated={isAuthenticated} />
-    //     </Protected>
-    //   ),
-    //   children: [
-    //     {
-    //       index: true,
-    //       element: <ChatHome />,
-    //     },
-    //     {
-    //       path: ':userId',
-    //       element: <Messages />,
-    //       children: [{ path: 'profile', element: <Profile /> }],
-    //     },
-    //     {
-    //       path: 'profile/:userId',
-    //       element: (
-    //         <Modal mode="profile" open={open} onClose={() => setOpen(!open)}>
-    //           <Profile />
-    //         </Modal>
-    //       ),
-    //     },
-    //   ],
-    // },
   ]);
 
   const queryClient = new QueryClient();
