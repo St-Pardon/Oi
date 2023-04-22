@@ -3,8 +3,6 @@
 ## Contents
 - [Prequists](#prequists)
 - [Setup](#setup)
-- [API Documentations](#api-documentations)
-    - [/]()
 - [Navigation](#navigation)
 
 ## Prequists
@@ -43,10 +41,8 @@ $
 - Step 4 - Start up server
 ```sh
 npm run dev
+...
 ```
-
-## API Documentations
-
 
 ### Navigation
 - [Go to Home](../README.md)
