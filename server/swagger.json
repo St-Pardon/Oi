@@ -1,0 +1,262 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Oi!",
+    "description": "Real-Time Chat Application API",
+    "contact": {
+      "name": "St. Pardon",
+      "url": "http://st-pardon.netlify.app",
+      "email": "d_pardon@live.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    },
+    {
+      "name": "Authentication",
+      "description": "API for authenticating users in the system"
+    },
+    {
+      "name": "Chatlist",
+      "description": "API for user's chatlist in the system"
+    },
+    {
+      "name": "Request",
+      "description": "API for sending and receiving user's request in the system"
+    }
+  ],
+  "paths": {
+    "/user/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by id in system",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of user that we want to find",
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "in": "headers",
+            "required": true,
+            "description": "authorize with the JWT passed basic auth",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/user/username/{name}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by username or email in system",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of user that we want to find",
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "in": "headers",
+            "required": true,
+            "description": "authorize with the JWT passed basic auth",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/{user}/edit": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Edit user in system",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of user that we want to find",
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "in": "headers",
+            "required": true,
+            "description": "authorize with the JWT passed basic auth",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Signup a user to the system",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "user infomation to create an account",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/signin": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Signin a user to the system",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "user information to sign in to their account",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email or username": { "type": "string" },
+                "password": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": { "type": "string" },
+                "token": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chatlist/{id}": {
+      "post": {
+        "tags": ["Chatlist"],
+        "summary": "list the chatlist of a user from the system",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of user that we want to find",
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "in": "headers",
+            "required": true,
+            "description": "authorize user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "chatlist": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "first_name": { "type": "string" },
+                      "last_name": { "type": "string" },
+                      "display_name": { "type": "string" },
+                      "display_picture": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "username",
+        "first_name",
+        "last_name",
+        "email",
+        "password",
+        "phone_no"
+      ],
+      "properties": {
+        "username": { "type": "string", "uniqueItems": true },
+        "display_name": { "type": "string" },
+        "first_name": { "type": "String" },
+        "last_name": { "type": "String" },
+        "email": { "type": "string", "uniqueItems": true },
+        "password": { "type": "string" },
+        "phone_no": { "type": "string" },
+        "chatlist": { "type": "string" },
+        "group": { "type": "string" }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    }
+  },
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"]
+}
