@@ -12,7 +12,7 @@ const app = new express();
 const server = http.createServer(app);
 const io = new Socket(server, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: '*',
     methods: ['GET', 'POST'],
     allowedHeaders: ['*'],
     credentials: true,

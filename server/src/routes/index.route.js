@@ -15,7 +15,7 @@ indexRoute
   .use(`${v1}request`, ChatRequestRouter)
   .use(`${v1}group`, GroupRoute)
   .get('/', (req, res) => {
-    res.status(200).end('Kindly refer to the API documentation to et started');
+    res.status(200).end('Kindly refer to the API documentation to get started');
   });
 
 export default indexRoute;
