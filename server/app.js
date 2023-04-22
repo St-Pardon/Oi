@@ -12,7 +12,7 @@ const app = new express();
 const server = http.createServer(app);
 const io = new Socket(server, {
   cors: {
-    origin: ['http://localhost:5173', 'https://st-pardon.netlify.app', 'https://6443acc7f54491034c3c49cb--oi-demo.netlify.app/'],
+    origin: 'https://oi-demo.netlify.app',
     methods: ['GET', 'POST'],
     allowedHeaders: ['*'],
     credentials: true,
