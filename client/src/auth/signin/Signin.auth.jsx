@@ -5,11 +5,13 @@ import { useSignin } from '../../services/query/query.service';
 import {
   AuthContainer,
   AuthSection,
+  Error,
   Form,
   Input,
   Legend,
 } from '../Auth.styled';
 import { useNavigate } from 'react-router-dom';
+import { ThreeDots } from '../../component/Loaders/loaders.component';
 
 const formField = {
   username: '',
@@ -27,7 +29,7 @@ const Signin = ({ socket, setIsAuthenticated, isAuthenticated }) => {
     localStorage.setItem('token', data.token);
     localStorage.setItem('userId', data.userId);
     // localStorage.setItem('authenticated', true);
-    socket(true)
+    socket(true);
   };
 
   const onError = (err) => {
@@ -41,7 +43,7 @@ const Signin = ({ socket, setIsAuthenticated, isAuthenticated }) => {
     }
   }, [isAuthenticated]);
 
-  const { mutate } = useSignin(onSuccess, onError);
+  const { mutate, isLoading, error } = useSignin(onSuccess, onError);
 
   const resetFeild = () => {
     setFormData(formField);
@@ -68,34 +70,41 @@ const Signin = ({ socket, setIsAuthenticated, isAuthenticated }) => {
               Oi<Span exclamation>!</Span>
             </Span>
           </HeadingH2>
-          <Para>Sign in for an optimal experience</Para>
-          <fieldset>
-            <Legend>Email or Username</Legend>
-            <Input
-              type="text"
-              name="username"
-              value={username}
-              onChange={handleChange}
-            />
-          </fieldset>
-          <fieldset>
-            <Legend>Password</Legend>
-            <Input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-            />
-          </fieldset>
-          <div>
-            <Button primary>Signin</Button>
-          </div>
-          <Para>
-            Don't have an account? <a href="signup">Sign Up</a>
-          </Para>
-          <Para>
-            <a href="/signup">Reset Password</a>
-          </Para>
+          {isLoading ? (
+            <ThreeDots />
+          ) : ( 
+            <>
+              <Para>Sign in for an optimal experience</Para>
+              {error ? <Error>Invlaid Username or Password</Error> : null}
+              <fieldset>
+                <Legend>Email or Username</Legend>
+                <Input
+                  type="text"
+                  name="username"
+                  value={username}
+                  onChange={handleChange}
+                />
+              </fieldset>
+              <fieldset>
+                <Legend>Password</Legend>
+                <Input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={handleChange}
+                />
+              </fieldset>
+              <div>
+                <Button primary>Signin</Button>
+              </div>
+              <Para>
+                Don't have an account? <a href="signup">Sign Up</a>
+              </Para>
+              <Para>
+                <a href="/signup">Reset Password</a>
+              </Para>{' '}
+            </>
+          )}
         </Form>
       </AuthSection>
     </AuthContainer>

@@ -12,18 +12,18 @@ export const AuthSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   ${(props) =>
     props.signin &&
     css`
-    background-image: url(${image});
-    // background-size: cover;
+      background-image: url(${image});
+      // background-size: cover;
     `}
-    ${(props) =>
-      props.signup &&
-      css`
+  ${(props) =>
+    props.signup &&
+    css`
       background-image: url(${image2});
-      `}
+    `}
       background-size: cover;
 `;
 
@@ -43,4 +43,18 @@ export const Input = styled.input`
 export const Legend = styled.legend`
   margin: 0 0.5em;
   padding: 0 0.2em;
+
+  ${(props) =>
+    props.req &&
+    css`
+      &::after {
+        content: '*';
+        color: red;
+      }
+    `}
+`;
+
+export const Error = styled.p`
+  font-size: 1.3rem;
+  color: red;
 `;
