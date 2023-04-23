@@ -11,6 +11,7 @@ import { errHandler } from './src/middleware/error.middleware.js';
 const PORT = process.env.PORT || 5000;
 const app = new express();
 const server = http.createServer(app);
+const offline = [];
 const io = new Socket(server, {
   cors: {
     origin: 'https://oi-demo.netlify.app',
@@ -63,10 +64,27 @@ io
     if (idx === -1) {
       ChatSession.push({ chatId: socket.id, username: socket.username });
     }
+
+    if (offline.filter((x) => x.to === socket.username).length > 0) {
+      offline
+        .filter((x) => x.to === socket.username)
+        .forEach((x) => {
+          io.to(socket.id)
+          .emit('message', { to: x.to, from: x.from, chat: x.chat });
+        });
+    }
     socket
       .on('chat', ({ to, from, chat }) => {
         let reciver = ChatSession.find((user) => user.username === to);
-        io.to(reciver.chatId).to(socket.id).emit('message', { to, from, chat });
+
+        if (reciver === undefined) {
+          offline.push({ to, from, chat });
+          io
+            .to(socket.id)
+            .emit('message', { to, from, chat });
+        } else {
+          io.to(reciver.chatId).to(socket.id).emit('message', { to, from, chat });
+        }
       })
 
       .on('disconnect', () => {
