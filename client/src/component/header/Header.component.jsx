@@ -7,7 +7,6 @@ import {
   Div,
 } from './Header.styled';
 import logo from '../../assets/Oi-logo.png';
-import avi from '../../assets/avatar/avi.png';
 import { BtnContainer, Button } from '../button/Button.component';
 import { Figure, Img } from '../image/image.styled';
 import { Link, Navigate } from 'react-router-dom';
@@ -31,13 +30,15 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
   const [open, setOpen] = useState({ option: false, notification: false });
 
   const handleSignOut = () => {
-    if (localStorage.getItem('userId')){
+    if (localStorage.getItem('userId')) {
       <Navigate replace to="/signin" />;
       setIsAuthenticated(false);
       localStorage.clear();
-      return
+      window.location.reload(false);
+      return;
     }
     <Navigate replace to="/signin" />;
+    window.location.reload(false);
   };
   return (
     <HeaderContainer>
@@ -82,7 +83,8 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
               </Dropdown>
             </Modal>
           </Div>
-          <Div user
+          <Div
+            user
             onClick={() =>
               setOpen({
                 ...open,
@@ -109,8 +111,6 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
                 })
               }
               mode="option"
-              // profile
-              // style={open.option ? { display: 'block' } : { display: 'none' }}
             >
               <Dropdown>
                 <Link to={`profile/${localStorage.getItem('userId')}`}>
