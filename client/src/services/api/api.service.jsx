@@ -17,7 +17,6 @@ export const Signin = (data) => {
 
 export const Chatlist = (userId) => {
   return axios.get(`${BaseURI}/chatlist/${userId}`).then((res) => {
-    console.log(res.data);
     return res.data;
   });
 };
@@ -51,7 +50,6 @@ export const ChangeChatRequest = ({ sender_id, request_id, status }) => {
 };
 
 export const EditUser = (data) => {
-  console.log(data)
   return axios
     .patch(`${BaseURI}/user/${localStorage.getItem('userId')}/edit`, data)
     .then((res) => res.data);

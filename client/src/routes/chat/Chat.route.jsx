@@ -31,7 +31,6 @@ const Chat = ({ isAuthenticated, connect, setIsAuthenticated }) => {
 
   useEffect(() => {
     socket.on('message', ({ chat, to, from }) => {
-      console.log(chat, to, from);
       setMsgs((msgs) => [...msgs, { chat, to, from }]);
     });
     socket.on('disconnect', () => {

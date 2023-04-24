@@ -22,7 +22,6 @@ const ChatRequest = ({
   dp,
 }) => {
   const onSuccess = (e) => {
-    console.log(e)
     if (refetchChatlist) {
       refetchChatlist();
       window.location.reload(false)

@@ -21,9 +21,7 @@ function App() {
   useEffect(() => {
     if (window.location.href.split('/')[2]) {
       setOpen(!open);
-      // return;
-    }
-    // setOpen(false);
+   }
   }, []);
 
   const router = createBrowserRouter([
