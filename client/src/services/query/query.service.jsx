@@ -11,20 +11,42 @@ import {
   Signup,
 } from '../api/api.service';
 
+/**
+ * useSignup hook - handles user creation
+ * @param {CallableFunction} onSuccess - callback function to handle success
+ * @param {CallableFunction} onError - callback function to handle failures
+ * @returns - return data
+ */
 export const useSignup = (onSuccess, onError) => {
   return useMutation(Signup, { networkMode: 'always', onSuccess, onError });
 };
 
+/**
+ * useSignin hook - handles user authentications
+ * @param {CallableFunction} onSuccess - callback function to handle success
+ * @param {CallableFunction} onError - callback function to handle failures
+ * @returns - return data
+ */
 export const useSignin = (onSuccess, onError) => {
   return useMutation(Signin, { networkMode: 'always', onSuccess, onError });
 };
 
+/**
+ * useGetUser hook - handles user info retrival
+ * @param {string} id-
+ * @returns - return data
+ */
 export const useGetUser = (id) => {
   return useQuery(['user', id], () => GetUserById(id), {
     networkMode: 'always',
   });
 };
 
+/**
+ *
+ * @param {string} username
+ * @returns
+ */
 export const useChatlist = (username) => {
   return useQuery(['chatlist'], () => Chatlist(username), {
     networkMode: 'always',
