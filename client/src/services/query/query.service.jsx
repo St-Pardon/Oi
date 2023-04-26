@@ -43,9 +43,9 @@ export const useGetUser = (id) => {
 };
 
 /**
- *
+ * useChatlist hook - handles chatlist retrival
  * @param {string} username
- * @returns
+ * @returns data
  */
 export const useChatlist = (username) => {
   return useQuery(['chatlist'], () => Chatlist(username), {
@@ -53,16 +53,31 @@ export const useChatlist = (username) => {
   });
 };
 
+/**
+ * useGetUserByUsername hook - handles retrieval for user info by name, email, username
+ * @returns data
+ */
 export const useGetUserByUsername = () => {
   return useMutation(GetUserByUsername, { networkMode: 'always' });
 };
 
+/**
+ * useChatRequest hook - handles retrival of chat requests
+ * @param {string} userId
+ * @returns data
+ */
 export const useChatRequest = (userId) => {
   return useQuery(['request'], () => GetChatRequest(userId), {
     networkMode: 'always',
   });
 };
 
+/**
+ * useSendChatRequest hook - handles sending of chat request
+ * @param {CallableFunction} onSuccess - callback function to handle success
+ * @param {CallableFunction} onError - callback function to handle failures
+ * @returns - return data
+ */
 export const useSendChatRequest = (onSuccess, onError) => {
   return useMutation(SendChatRequest, {
     networkMode: 'always',
@@ -71,6 +86,12 @@ export const useSendChatRequest = (onSuccess, onError) => {
   });
 };
 
+/**
+ * useChangeChatRequest - handles chat request confirmation, rejection or cancellation
+ * @param {CallableFunction} onSuccess - callback function to handle success
+ * @param {CallableFunction} onError - callback function to handle failures
+ * @returns - return data
+ */
 export const useChangeChatRequest = (onSuccess, onError) => {
   return useMutation(ChangeChatRequest, {
     networkMode: 'always',
@@ -79,6 +100,12 @@ export const useChangeChatRequest = (onSuccess, onError) => {
   });
 };
 
+/**
+ * useEditUserProfile - handles edit for user information
+ * @param {CallableFunction} onSuccess - callback function to handle success
+ * @param {CallableFunction} onError - callback function to handle failures
+ * @returns - return data
+ */
 export const useEditUserProfile = (onSuccess, onError) => {
   return useMutation(EditUser, {
     networkMode: 'always',
