@@ -49,7 +49,7 @@ class AuthUserController {
           if (error) return next(error);
           const body = { _id: user._id, email: user.email };
           const token = jwt.sign({ user: body }, process.env.JWT_SECRET, {
-            expiresIn: '1h',
+            expiresIn: '24h',
           });
           return res
             .status(200)

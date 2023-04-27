@@ -24,7 +24,7 @@ passport
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
         ignoreExpiration: false,
         jsonWebTokenOptions: {
-          maxAge: '1h',
+          maxAge: '48h',
         },
       },
       async (token, done) => {
