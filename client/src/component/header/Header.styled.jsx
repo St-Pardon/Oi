@@ -36,22 +36,23 @@ export const Nav = styled.nav`
     css`
       gap: 10px;
     `}
-    @media ${devices.mobileL} {
+
+  @media ${devices.mobileL} {
     ${(props) =>
       props.nav &&
       css`
-        width: 30%;
+        width: 32%;
       `}
     ${(props) =>
       props.logo &&
       css`
-        width: 30%;
+        width: 25%;
         justify-content: center;
       `} 
           ${(props) =>
       props.mvsb &&
       css`
-        width: 30%;
+        width: 32%;
         justify-content: flex-start;
       `}
   }
