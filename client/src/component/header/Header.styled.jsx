@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { devices } from '../../utils/breakpoint.utils';
 
 export const HeaderContainer = styled.header`
   width: 100%;
@@ -13,7 +14,7 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Nav = styled.nav`
-  width: 48%;
+  width: 20%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -21,7 +22,7 @@ export const Nav = styled.nav`
   ${(props) =>
     props.nav &&
     css`
-      width: 60%;
+      width: 80%;
     `}
 
   ${(props) =>
@@ -35,12 +36,50 @@ export const Nav = styled.nav`
     css`
       gap: 10px;
     `}
+    @media ${devices.mobileL} {
+    ${(props) =>
+      props.nav &&
+      css`
+        width: 30%;
+      `}
+    ${(props) =>
+      props.logo &&
+      css`
+        width: 30%;
+        justify-content: center;
+      `} 
+          ${(props) =>
+      props.mvsb &&
+      css`
+        width: 30%;
+        justify-content: flex-start;
+      `}
+  }
 `;
 
 export const NavBar = styled.ul`
   list-style: none;
   align-items: center;
   display: flex;
+
+  ${(props) =>
+    props.tab &&
+    css`
+      display: none;
+    `}
+  @media ${devices.tablet} {
+    ${(props) =>
+      props.main &&
+      css`
+        display: none;
+      `}
+
+    ${(props) =>
+      props.tab &&
+      css`
+        display: block;
+      `}
+  }
 `;
 
 export const Navlist = styled.li`

@@ -11,6 +11,7 @@ import { BtnContainer, Button } from '../button/Button.component';
 import { Figure, Img } from '../image/image.styled';
 import { Link, Navigate } from 'react-router-dom';
 import { MdNotifications } from 'react-icons/md';
+import { RiMenu4Fill } from 'react-icons/ri';
 import { useGetUser } from '../../services/query/query.service';
 import { HeadingH3 } from '../heading/headings.styled';
 import Dropdown from '../dropdown/dropdown.component';
@@ -42,6 +43,12 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
   };
   return (
     <HeaderContainer>
+      {/* mvsb - mobile view signup button  */}
+      <Nav mvsb>
+        <Link to={'/signup'}>
+          <Button>Sign Up</Button>
+        </Link>
+      </Nav>
       <Nav logo>
         <Figure logo>
           <a href={route}>
@@ -72,11 +79,6 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
                 })
               }
               mode="notification"
-              // mode={true}
-              // notification
-              // style={
-              //   open.notification ? { display: 'block' } : { display: 'none' }
-              // }
             >
               <Dropdown>
                 <p>Notifications</p>
@@ -131,7 +133,7 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
         </Nav>
       ) : (
         <Nav nav>
-          <NavBar>
+          <NavBar main>
             <a href="/">
               <Navlist unauth>Home</Navlist>
             </a>
@@ -153,6 +155,9 @@ const Header = ({ route, isAuthenticated, setIsAuthenticated }) => {
               <Button primary>Signin</Button>
             </Link>
           </BtnContainer>
+          <NavBar tab>
+            <RiMenu4Fill size={'30px'} />
+          </NavBar>
         </Nav>
       )}
     </HeaderContainer>
