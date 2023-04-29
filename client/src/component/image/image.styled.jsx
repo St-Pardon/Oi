@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { devices } from '../../utils/breakpoint.utils';
 
 export const Overlay = styled.label`
   position: absolute;
@@ -61,13 +62,21 @@ export const Figure = styled.figure`
       border-radius: 0;
     `}
   
-    ${(props) =>
+  ${(props) =>
     props.contribute &&
     css`
       width: 200px;
       height: 200px;
       margin: 0 auto;
     `}
+
+  @media ${devices.mobileL}{
+    ${(props) =>
+      props.logo &&
+      css`
+        width: 80px;
+      `}
+  }
 `;
 
 export const Img = styled.img`

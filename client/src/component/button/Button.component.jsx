@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { devices } from '../../utils/breakpoint.utils';
 
 export const Button = styled.button`
   background: transparent;
@@ -70,7 +71,7 @@ export const Button = styled.button`
       gap: 10px;
       background: #075471;
       color: white;
-      
+
       &:hover {
         background: white;
         color: #075471;
@@ -81,4 +82,8 @@ export const Button = styled.button`
 export const BtnContainer = styled.div`
   text-align: center;
   margin-left: 2em;
+  
+  @media ${devices.mobileL} {
+    display: none;
+  }
 `;
