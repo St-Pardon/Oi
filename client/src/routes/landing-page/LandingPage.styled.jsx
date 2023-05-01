@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { devices } from '../../utils/breakpoint.utils';
 
 export const Section = styled.section`
   display: flex;
@@ -17,20 +18,28 @@ export const Section = styled.section`
       gap: 20px;
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.contribute &&
     css`
       flex-direction: column;
       align-items: center;
     `}
       
-    ${(props) =>
+  ${(props) =>
     props.qrcode &&
     css`
       justify-content: space-around;
       align-items: center;
       width: 100%;
     `}
+
+  @media ${devices.tablet} {
+    ${(props) =>
+      props.hero &&
+      css`
+        display: block;
+      `}
+  }
 `;
 
 export const HeroTextContatiner = styled.div`
@@ -42,7 +51,7 @@ export const HeroTextContatiner = styled.div`
   ${(props) =>
     props.hero &&
     css`
-      text-align: right;
+      // text-align: right;
     `};
 
   ${(props) =>
@@ -51,6 +60,16 @@ export const HeroTextContatiner = styled.div`
       flex-direction: column;
       align-items: flex-start;
     `};
+
+  @media ${devices.tablet} {
+    ${(props) =>
+      props.hero &&
+      css`
+        width: 100%;
+        padding: 0;
+        text-align: center;
+      `}
+  }
 `;
 
 export const ListItem = styled.li`
@@ -59,5 +78,7 @@ export const ListItem = styled.li`
   &::before {
     content: '💬';
     margin-right: 20px;
+  }
+  @media ${devices.mobileL} {
   }
 `;

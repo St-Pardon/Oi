@@ -37,6 +37,12 @@ export const Nav = styled.nav`
       gap: 10px;
     `}
 
+    ${(props) =>
+      props.mvsb &&
+      css`
+        display: none;
+      `}
+
   @media ${devices.mobileL} {
     ${(props) =>
       props.nav &&
@@ -49,9 +55,10 @@ export const Nav = styled.nav`
         width: 25%;
         justify-content: center;
       `} 
-          ${(props) =>
+    ${(props) =>
       props.mvsb &&
       css`
+        display: block;
         width: 32%;
         justify-content: flex-start;
       `}

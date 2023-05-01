@@ -5,6 +5,7 @@ export const Container = styled.div`
   justify-content: space-between;
   max-width: 550px;
   width: 100%;
+  flex-wrap: wrap;
 `;
 
 export const SocialIcon = styled.div`

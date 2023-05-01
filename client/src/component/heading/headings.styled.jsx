@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { devices } from '../../utils/breakpoint.utils';
 
 export const HeadingH2 = styled.h2`
   ${(props) =>
@@ -24,6 +25,13 @@ export const HeadingH2 = styled.h2`
     css`
       text-align: center;
     `}
+  @media ${devices.mobileL} {
+    ${(props) =>
+      props.hero &&
+      css`
+        font-size: 1.7rem;
+      `}
+  }
 `;
 
 export const HeadingH3 = styled.h3`
@@ -70,8 +78,8 @@ export const Para = styled.p`
       font-size: 1.5rem;
       margin-bottom: 0.5em;
     `}
-   
-    ${(props) =>
+
+  ${(props) =>
     props.about &&
     css`
       line-height: 40px;
@@ -83,4 +91,13 @@ export const Para = styled.p`
       line-height: 30px;
       margin: 20px 0;
     `}
+
+    @media ${devices.mobileL} {
+    ${(props) =>
+      props.hero &&
+      css`
+        font-size: 1rem;
+        padding: 5px;
+      `}
+  }
 `;

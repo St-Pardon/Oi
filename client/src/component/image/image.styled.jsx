@@ -69,8 +69,14 @@ export const Figure = styled.figure`
       height: 200px;
       margin: 0 auto;
     `}
-
-  @media ${devices.mobileL}{
+  @media ${devices.tablet} {
+    ${(props) =>
+      props.hero &&
+      css`
+        width: 100%;
+      `}
+  }
+  @media ${devices.mobileL} {
     ${(props) =>
       props.logo &&
       css`

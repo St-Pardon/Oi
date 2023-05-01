@@ -21,14 +21,14 @@ const LandingPage = () => {
     <>
       <Header route="/" />
       <main>
-        <Section>
+        <Section hero>
           <Figure hero>
             <Img
               src={heroImg}
               alt="Hero display of a chat application mockup"
             />
           </Figure>
-          <HeroTextContatiner>
+          <HeroTextContatiner hero>
             <div>
               <HeadingH2 hero>
                 Exprience the future with{' '}
