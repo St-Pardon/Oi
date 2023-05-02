@@ -39,6 +39,16 @@ export const Section = styled.section`
       css`
         display: block;
       `}
+    ${(props) =>
+      props.feature &&
+      css`
+        display: block;
+      `}
+    ${(props) =>
+      props.about &&
+      css`
+        flex-direction: column-reverse;
+      `}
   }
 `;
 
@@ -68,6 +78,11 @@ export const HeroTextContatiner = styled.div`
         width: 100%;
         padding: 0;
         text-align: center;
+      `}
+    ${(props) =>
+      props.about &&
+      css`
+        text-align: justify;
       `}
   }
 `;

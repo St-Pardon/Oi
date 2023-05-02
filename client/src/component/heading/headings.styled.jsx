@@ -99,5 +99,11 @@ export const Para = styled.p`
         font-size: 1rem;
         padding: 5px;
       `}
-  }
+      ${(props) =>
+        props.about &&
+        css`
+          margin: 10px;
+          padding: 0;
+        `}
+    }
 `;

@@ -53,8 +53,8 @@ const LandingPage = () => {
             </div>
           </HeroTextContatiner>
         </Section>
-        <Section id="about">
-          <HeroTextContatiner hero>
+        <Section id="about" about>
+          <HeroTextContatiner hero about>
             <Para hero about>
               <Span hero>
                 Oi<Span exclamation>!</Span>
