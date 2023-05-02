@@ -92,16 +92,17 @@ export const Para = styled.p`
       margin: 20px 0;
     `}
 
-    @media ${devices.mobileL} {
+    @media ${devices.tablet} {
     ${(props) =>
       props.hero &&
       css`
         font-size: 1rem;
         padding: 5px;
-      `}
-      ${(props) =>
-        props.about &&
-        css`
+        `}
+        ${(props) =>
+          props.about &&
+          css`
+          font-size: 1rem;
           margin: 10px;
           padding: 0;
         `}

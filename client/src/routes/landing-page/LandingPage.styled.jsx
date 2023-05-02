@@ -84,6 +84,11 @@ export const HeroTextContatiner = styled.div`
       css`
         text-align: justify;
       `}
+    ${(props) =>
+      props.feature &&
+      css`
+        width: 100%;
+      `}
   }
 `;
 
