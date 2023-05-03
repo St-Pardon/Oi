@@ -12,6 +12,12 @@ export const Section = styled.section`
     `}
 
   ${(props) =>
+    props.teamcon &&
+    css`
+      display: block;
+    `}
+
+  ${(props) =>
     props.team &&
     css`
       justify-content: center;
@@ -48,6 +54,11 @@ export const Section = styled.section`
       props.about &&
       css`
         flex-direction: column-reverse;
+      `}
+    ${(props) =>
+      props.team &&
+      css`
+        display: block;
       `}
   }
 `;
@@ -88,7 +99,23 @@ export const HeroTextContatiner = styled.div`
       props.feature &&
       css`
         width: 100%;
+        padding: 0;
       `}
+    ${(props) =>
+      props.team &&
+      css`
+        width: 100%;
+        text-align: justify;
+        align-items: center;
+        padding: 0;
+      `}
+  }
+`;
+
+export const Ul = styled.ul`
+  @media ${devices.tablet} {
+    padding: 0;
+    margin: 10px 5px 10px 15px;
   }
 `;
 

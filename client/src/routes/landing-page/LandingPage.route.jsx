@@ -4,7 +4,12 @@ import heroImg3 from '../../assets/product-img/hero_img3.jpg';
 import heroImg2 from '../../assets/product-img/group_chat.png';
 import qrcode from '../../assets/bmc_qr.png';
 import { Figure, Img } from '../../component/image/image.styled';
-import { Section, HeroTextContatiner, ListItem } from './LandingPage.styled';
+import {
+  Section,
+  HeroTextContatiner,
+  ListItem,
+  Ul,
+} from './LandingPage.styled';
 import {
   HeadingH2,
   HeadingH3,
@@ -81,66 +86,56 @@ const LandingPage = () => {
           {/* <iframe src="https://www.buymeacoffee.com/pardonne" frameborder="0"></iframe> */}
           <HeroTextContatiner feature>
             <div>
-              <HeadingH3>
+              <HeadingH3 feature>
                 With{' '}
                 <Span hero>
                   Oi<Span exclamation>!</Span>
                 </Span>
                 you can{' '}
               </HeadingH3>
-              <ul>
+              <Ul>
                 <ListItem>Freely express yourself</ListItem>
                 <ListItem>Chat with your friends and family</ListItem>
                 <ListItem>Use beaultify emorjis to express yourself</ListItem>
                 <ListItem>
                   Create a group chat and invite your friends and family
                 </ListItem>
-              </ul>
+              </Ul>
             </div>
           </HeroTextContatiner>
         </Section>
-        <Section>
-          <div>
-            <HeadingH2 team>Meet the Team</HeadingH2>
-            <Section team>
-              <figure
-                style={{
-                  width: '200px',
-                  height: '200px',
-                  borderRadius: '100%',
-                  border: '3px solid #f2f2f233',
-                  overflow: 'hidden',
-                }}
-              >
-                <img
-                  src="https://res.cloudinary.com/dq4o7ygcd/image/upload/v1681909157/IMG_20230419_134610_hovwog.jpg"
-                  style={{ width: '100%' }}
-                  alt=""
-                />
-              </figure>
-              <HeroTextContatiner team>
-                <HeadingH3>Onyedikachi Onu</HeadingH3>
-                <HeadingH3>Software Engineer @ AlxAfrica</HeadingH3>
-                <Para team>
-                  A software engineer with 2+ years of hands-on experience in
-                  developing web applications using frontend technologies like
-                  React, JavaScript, HTML5, CSS3 etc., and backend technologies
-                  like Node.js/Express. When i don't code i have fun by watching
-                  my favorite movies and TV shows, reading technical
-                  blogs/articles and listening to music. I am a hard worker and
-                  always deliver quality work within the specified timeframe.
-                </Para>
-                <Socials
-                  twitter={'https://twitter.com/st_Pardon'}
-                  github={'https://github.com/St-Pardon'}
-                  linkedin={
-                    'https://www.linkedin.com/in/onyedikachi-onu-374a8512a/'
-                  }
-                  portfolio={'https://st-pardon.netlify.app'}
-                />
-              </HeroTextContatiner>
-            </Section>
-          </div>
+        <Section teamcon>
+          <HeadingH2 team>Meet the Team</HeadingH2>
+          <Section team>
+            <Figure team>
+              <img
+                src="https://res.cloudinary.com/dq4o7ygcd/image/upload/v1681909157/IMG_20230419_134610_hovwog.jpg"
+                style={{ width: '100%' }}
+                alt=""
+              />
+            </Figure>
+            <HeroTextContatiner team>
+              <HeadingH3 team>Onyedikachi Onu</HeadingH3>
+              <HeadingH3 team>Software Engineer @ AlxAfrica</HeadingH3>
+              <Para team>
+                A software engineer with 2+ years of hands-on experience in
+                developing web applications using frontend technologies like
+                React, JavaScript, HTML5, CSS3 etc., and backend technologies
+                like Node.js/Express. When i don't code i have fun by watching
+                my favorite movies and TV shows, reading technical
+                blogs/articles and listening to music. I am a hard worker and
+                always deliver quality work within the specified timeframe.
+              </Para>
+              <Socials
+                twitter={'https://twitter.com/st_Pardon'}
+                github={'https://github.com/St-Pardon'}
+                linkedin={
+                  'https://www.linkedin.com/in/onyedikachi-onu-374a8512a/'
+                }
+                portfolio={'https://st-pardon.netlify.app'}
+              />
+            </HeroTextContatiner>
+          </Section>
         </Section>
         <Section id="contribute" contribute>
           <HeadingH3 contribute>Contributions</HeadingH3>
@@ -150,7 +145,8 @@ const LandingPage = () => {
           <Section qrcode>
             <div>
               <Para hero>
-                To help build the application and contribute to the codebase. <br />
+                To help build the application and contribute to the codebase.{' '}
+                <br />
                 Read the contribution <a href="">Documentations</a>
               </Para>
             </div>
