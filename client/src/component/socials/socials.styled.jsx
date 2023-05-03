@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { devices } from '../../utils/breakpoint.utils';
 
 export const Container = styled.div`
   display: flex;
@@ -6,6 +7,11 @@ export const Container = styled.div`
   max-width: 550px;
   width: 100%;
   flex-wrap: wrap;
+
+  @media ${devices.tablet}{
+    justify-content: space-evenly;
+    row-gap: 20px;
+  }
 `;
 
 export const SocialIcon = styled.div`

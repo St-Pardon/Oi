@@ -54,6 +54,19 @@ export const HeadingH3 = styled.h3`
     css`
       font-size: 2.3rem;
     `}
+
+    @media ${devices.tablet} {
+    ${(props) =>
+      props.team &&
+      css`
+        text-align: center;
+      `}
+    ${(props) =>
+      props.feature &&
+      css`
+        margin: 10px 5px 10px 15px;
+      `}
+  }
 `;
 
 export const Span = styled.span`
@@ -98,13 +111,24 @@ export const Para = styled.p`
       css`
         font-size: 1rem;
         padding: 5px;
-        `}
-        ${(props) =>
-          props.about &&
-          css`
-          font-size: 1rem;
-          margin: 10px;
-          padding: 0;
-        `}
-    }
+      `}
+    ${(props) =>
+      props.hero &&
+      css`
+        font-size: 1rem;
+        padding: 5px;
+      `}
+      ${(props) =>
+      props.team &&
+      css`
+        margin: 10px;
+      `}
+      ${(props) =>
+      props.about &&
+      css`
+        font-size: 1rem;
+        margin: 10px;
+        padding: 0;
+      `}
+  }
 `;

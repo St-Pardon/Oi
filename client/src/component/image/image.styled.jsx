@@ -36,6 +36,17 @@ export const Figure = styled.figure`
       height: 50px;
       border-radius: 100%;
     `}
+    
+  ${(props) =>
+    props.team &&
+    css`
+      width: 200px;
+      height: 200px;
+      border-radius: 100%;
+      border: 3px solid #f2f2f233;
+      overflow: hidden;
+    `}
+
   ${(props) =>
     props.header &&
     css`
@@ -74,6 +85,11 @@ export const Figure = styled.figure`
       props.hero &&
       css`
         width: 100%;
+      `}
+    ${(props) =>
+      props.team &&
+      css`
+        margin: 0 auto;
       `}
   }
   @media ${devices.mobileL} {
