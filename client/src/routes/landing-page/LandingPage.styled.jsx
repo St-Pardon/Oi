@@ -59,6 +59,18 @@ export const Section = styled.section`
       props.team &&
       css`
         display: block;
+        padding: 0;
+      `}
+      ${(props) =>
+      props.contribute &&
+      css`
+        padding: 0 0 20px 0;
+      `}
+      ${(props) =>
+      props.qrcode &&
+      css`
+        padding: 0;
+        display: block;
       `}
   }
 `;
@@ -127,5 +139,19 @@ export const ListItem = styled.li`
     margin-right: 20px;
   }
   @media ${devices.mobileL} {
+  }
+`;
+
+export const Br = styled.br`
+  @media ${devices.tablet} {
+    display: none;
+  }
+`;
+
+export const Spx = styled.span`
+  display: none;
+
+  @media ${devices.tablet} {
+    display: inline;
   }
 `;

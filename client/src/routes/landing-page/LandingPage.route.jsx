@@ -9,6 +9,8 @@ import {
   HeroTextContatiner,
   ListItem,
   Ul,
+  Br,
+  Spx
 } from './LandingPage.styled';
 import {
   HeadingH2,
@@ -146,13 +148,13 @@ const LandingPage = () => {
             <div>
               <Para hero>
                 To help build the application and contribute to the codebase.{' '}
-                <br />
+                <Br />
                 Read the contribution <a href="">Documentations</a>
               </Para>
             </div>
-            <Para>Or</Para>
+            <Para qr>Or</Para>
             <div>
-              <Para hero>Scan the QRCode below to buy us a coffee</Para>
+              <Para hero><Spx>Or you can</Spx> Scan the QRCode below to buy us a coffee</Para>
               <Figure contribute>
                 <Img src={qrcode} alt="BuyMeCoffee QRCode" />
               </Figure>
