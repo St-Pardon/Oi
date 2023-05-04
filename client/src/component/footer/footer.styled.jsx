@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../utils/breakpoint.utils';
 
 export const FooterContainer = styled.footer`
   width: 100%;
@@ -12,6 +13,10 @@ export const FooterContainer = styled.footer`
 
 export const Copyright = styled.div`
   padding: 5px 0;
+
+  @media ${devices.tablet} {
+    text-align: center;
+  }
 `;
 
 export const Hr = styled.hr`

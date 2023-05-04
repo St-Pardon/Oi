@@ -124,6 +124,11 @@ export const Para = styled.p`
         margin: 10px;
       `}
       ${(props) =>
+      props.qr &&
+      css`
+        display: none;
+      `}
+      ${(props) =>
       props.about &&
       css`
         font-size: 1rem;
