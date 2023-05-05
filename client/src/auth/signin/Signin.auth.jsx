@@ -5,13 +5,15 @@ import { useSignin } from '../../services/query/query.service';
 import {
   AuthContainer,
   AuthSection,
+  Back,
   Error,
   Form,
   Input,
   Legend,
 } from '../Auth.styled';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ThreeDots } from '../../component/Loaders/loaders.component';
+import { MdClose } from 'react-icons/md';
 
 const formField = {
   username: '',
@@ -64,6 +66,11 @@ const Signin = ({ socket, setIsAuthenticated, isAuthenticated }) => {
       <AuthSection signin></AuthSection>
       <AuthSection>
         <Form onSubmit={handleSubmit}>
+          <Back>
+            <Link to={'/'}>
+              <MdClose size={'35px'} color='black' />
+            </Link>
+          </Back>
           <HeadingH2>
             Welcome Back to{' '}
             <Span hero>
@@ -72,7 +79,7 @@ const Signin = ({ socket, setIsAuthenticated, isAuthenticated }) => {
           </HeadingH2>
           {isLoading ? (
             <ThreeDots />
-          ) : ( 
+          ) : (
             <>
               <Para>Sign in for an optimal experience</Para>
               {error ? <Error>Invlaid Username or Password</Error> : null}

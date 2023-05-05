@@ -9,9 +9,11 @@ import {
   AuthContainer,
   AuthSection,
   Error,
+  Back,
 } from '../Auth.styled';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ThreeDots } from '../../component/Loaders/loaders.component';
+import { MdClose } from 'react-icons/md';
 
 const formField = {
   first_name: '',
@@ -71,6 +73,11 @@ const Signup = () => {
         ) : (
           <>
             <Form onSubmit={handleSubmit}>
+              <Back>
+                <Link to={'/'}>
+                  <MdClose size={'35px'} color={'black'} />
+                </Link>
+              </Back>
               <HeadingH2>
                 Create your{' '}
                 <Span hero>
