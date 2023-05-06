@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-const BaseURI = 'https://oi-n1ic.onrender.com/api/v1';
-const Headers = { Authentication: `Bearer ${localStorage.getItem('token')}` };
+const BaseURI = 'http://127.0.0.1:5000/api/v1';
+// const BaseURI = 'https://oi-n1ic.onrender.com/api/v1';
+const headers = {
+  'Content-Type': 'application/json',
+  Authorization: `Bearer ${localStorage.getItem('token')}`,
+};
 
 /**
  * Create a new user
@@ -27,9 +31,11 @@ export const Signin = (data) => {
  * @returns requests data
  */
 export const Chatlist = (userId) => {
-  return axios.get(`${BaseURI}/chatlist/${userId}`).then((res) => {
-    return res.data;
-  });
+  return axios
+    .get(`${BaseURI}/chatlist/${userId}`, { headers: headers })
+    .then((res) => {
+      return res.data;
+    });
 };
 
 /**
@@ -38,7 +44,9 @@ export const Chatlist = (userId) => {
  * @returns requested data
  */
 export const GetUserById = (id) => {
-  return axios.get(`${BaseURI}/user/${id}`).then((res) => res.data);
+  return axios
+    .get(`${BaseURI}/user/${id}`, { headers: headers })
+    .then((res) => res.data);
 };
 
 /**
@@ -48,7 +56,7 @@ export const GetUserById = (id) => {
  */
 export const GetUserByUsername = (username) => {
   return axios
-    .get(`${BaseURI}/user/username/${username}`)
+    .get(`${BaseURI}/user/username/${username}`, { headers: headers })
     .then((res) => res.data);
 };
 
@@ -58,7 +66,9 @@ export const GetUserByUsername = (username) => {
  * @returns requested data
  */
 export const GetChatRequest = (userId) => {
-  return axios.get(`${BaseURI}/request/${userId}`).then((res) => res.data);
+  return axios
+    .get(`${BaseURI}/request/${userId}`, { headers: headers })
+    .then((res) => res.data);
 };
 
 /**
@@ -68,7 +78,11 @@ export const GetChatRequest = (userId) => {
  */
 export const SendChatRequest = ({ request_id, sender_id }) => {
   return axios
-    .put(`${BaseURI}/request/${sender_id}`, { request_id })
+    .put(
+      `${BaseURI}/request/${sender_id}`,
+      { request_id },
+      { headers: headers }
+    )
     .then((res) => res.data);
 };
 
@@ -80,7 +94,8 @@ export const SendChatRequest = ({ request_id, sender_id }) => {
 export const ChangeChatRequest = ({ sender_id, request_id, status }) => {
   return axios
     .patch(
-      `${BaseURI}/request/${sender_id}?request_id=${request_id}&status=${status}`
+      `${BaseURI}/request/${sender_id}?request_id=${request_id}&status=${status}`,
+      { headers: headers }
     )
     .then((res) => res.data);
 };
@@ -92,6 +107,8 @@ export const ChangeChatRequest = ({ sender_id, request_id, status }) => {
  */
 export const EditUser = (data) => {
   return axios
-    .patch(`${BaseURI}/user/${localStorage.getItem('userId')}/edit`, data)
+    .patch(`${BaseURI}/user/${localStorage.getItem('userId')}/edit`, data, {
+      headers: headers,
+    })
     .then((res) => res.data);
 };
